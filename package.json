@@ -11,8 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/NilGE/blog.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "blog",
+    "React",
+    "express"
+  ],
+  "author": "NILGE",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/NilGE/blog/issues"
@@ -20,11 +24,17 @@
   "homepage": "https://github.com/NilGE/blog#readme",
   "devDependencies": {
     "babel-cli": "^6.24.0",
+    "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.0",
-    "nodemon": "^1.11.0"
+    "babel-preset-react": "^6.23.0",
+    "nodemon": "^1.11.0",
+    "webpack": "^2.3.1",
+    "webpack-dev-middleware": "^1.10.1"
   },
   "dependencies": {
     "ejs": "^2.5.6",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }
