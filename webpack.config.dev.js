@@ -1,18 +1,28 @@
 
+import webpack from 'webpack';
+
 export default {
   devtool: 'eval-source-map',
-  entry: ['./client/index.js'],
+  entry: [
+    'webpack-hot-middleware/client',
+    './client/index.js'
+  ],
   output: {
     path: __dirname + '/public',
 		filename: 'bundle.js',
 		publicPath: '/'
   },
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        loaders: ['react-hot-loader', 'babel-loader']
       }
     ]
   }

@@ -1,15 +1,23 @@
 import express from 'express';
 import config from '../config/config';
-
-// add webpack modules
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
+
+// add webpack hot middleware
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
 import webpackConfig from '../webpack.config.dev';
 
 const app = express();
 
-// use webpack module to resolve js
-app.use(webpackMiddleware(webpack(webpackConfig)));
+// use hot webpack module to hot reload page
+const compiler = webpack(webpackConfig);
+app.use(webpackMiddleware(compiler, {
+  hot: true,
+  publicPath: webpackConfig.output.publicPath,
+  noInfo: true
+}));
+app.use(webpackHotMiddleware(compiler));
 
 app.set('view engine', 'ejs');
 
