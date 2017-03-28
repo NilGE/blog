@@ -4,22 +4,44 @@ import {Link} from 'react-router';
 class App extends React.Component {
   render() {
     return (
-      <div className="containter">
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-              <div className="navbar-header">
-                <Link className="navbar-brand" to="/">NILGE</Link>
-              </div>
-              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul className="nav navbar-nav">
-                  <li><Link to="/">HOME</Link></li>
-                  <li><Link to="/about">ABOUT</Link></li>
-                  <li><Link to="/post">POST</Link></li>
-                  <li><Link to="/conect">CONTACT</Link></li>
-                </ul>
-              </div>
+      <div>
+        <nav className="navbar fixed-top navbar-toggleable-md navbar-light" id="mainNav">
+            <div className="container">
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu <i className="fa fa-bars"></i>
+                </button>
+                <Link className="navbar-brand page-scroll" href="index.html">Start Bootstrap</Link>
+                <div className="collapse navbar-collapse" id="navbarResponsive">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <Link className="nav-link page-scroll" to="/home">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link page-scroll" to="/about">About</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link page-scroll" to="/posts">Sample Post</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link page-scroll" to="/contact">Contact</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
+
+        <header className="intro-header" style={{backgroundImage: 'url(img/home-bg.jpg)'}}>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                        <div className="site-heading">
+                            <h1>Clean Blog</h1>
+                            <span className="subheading">A Blog Theme by Start Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
         {this.props.children}
       </div>
     );
