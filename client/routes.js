@@ -5,6 +5,7 @@ import Home from './components/home';
 import About from './components/about';
 import Contact from './components/contact';
 import Sample from './components/sample';
+import Article from './components/article';
 
 export default (
   <Route path="/" component={App}>
@@ -14,5 +15,6 @@ export default (
     <Route path="/posts" component={Sample}></Route>
     <Route path="/contact" component={Contact}></Route>
     <Route path="/sample" component={Sample}></Route>
+    <Route path="/article" component={Article}></Route>
   </Route>
 );

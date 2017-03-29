@@ -7,7 +7,7 @@ const Home = () => {
         <div className="row">
             <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                 <div className="post-preview">
-                    <Link to="/sample">
+                    <Link to="/article">
                         <h2 className="post-title">
                             Man must explore, and this is exploration at its greatest
                         </h2>
