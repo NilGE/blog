@@ -11,7 +11,7 @@ detection.
 
 The bare minimum for using highlight.js on a web page is linking to the
 library along with one of the styles and calling
-[`initHighlightingOnLoad`][1]:
+[\`initHighlightingOnLoad\`][1]:
 
 ```html
 <link rel="stylesheet" href="/path/to/styles/default.css">

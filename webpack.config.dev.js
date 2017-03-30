@@ -1,4 +1,3 @@
-
 import webpack from 'webpack';
 
 export default {
@@ -23,6 +22,10 @@ export default {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ['react-hot-loader', 'babel-loader']
+      },
+      {
+        test: /\.md$/,
+        loaders: ["html-loader", "markdown-loader"]
       }
     ]
   }
