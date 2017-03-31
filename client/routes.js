@@ -6,6 +6,7 @@ import About from './components/about';
 import Contact from './components/contact';
 import Sample from './components/sample';
 import Article from './components/article';
+import MarkdownEditor from './components/markdownEditor';
 
 export default (
   <Route path="/" component={App}>
@@ -16,5 +17,6 @@ export default (
     <Route path="/contact" component={Contact}></Route>
     <Route path="/sample" component={Sample}></Route>
     <Route path="/article" component={Article}></Route>
+    <Route path="/markdownEditor" component={MarkdownEditor}></Route>
   </Route>
 );

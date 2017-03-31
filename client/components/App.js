@@ -25,6 +25,9 @@ class App extends React.Component {
                         <li className="nav-item">
                             <Link className="nav-link page-scroll" to="/contact">Contact</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link page-scroll" to="/markdownEditor">New Post</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
