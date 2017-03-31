@@ -19,6 +19,11 @@ export default {
   module: {
     loaders: [
       {
+				test: /\.json$/,
+				include: __dirname + '/client',
+				loader: 'json-loader'
+			},
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ['react-hot-loader', 'babel-loader']
