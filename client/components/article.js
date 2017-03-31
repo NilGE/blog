@@ -10,7 +10,9 @@ renderer.code = function(code, language) {
 
 const Article = () => {
   return (
-    <div dangerouslySetInnerHTML = {{ __html: marked(file.toString(), {renderer : renderer}) }} />
+    <div className="container">
+      <div dangerouslySetInnerHTML = {{ __html: marked(file.toString(), {renderer : renderer}) }} />
+    </div>
   );
 };
 
