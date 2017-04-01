@@ -33,18 +33,7 @@ class App extends React.Component {
             </div>
         </nav>
 
-        <header className="intro-header" style={{backgroundImage: 'url(img/home-bg.jpg)'}}>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                        <div className="site-heading">
-                            <h1>Clean Blog</h1>
-                            <span className="subheading">A Blog Theme by Start Bootstrap</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        
         {this.props.children}
       </div>
     );
