@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ImageHeader = ({ imagePath, type, heading, subheading, other}) => {
+const ImageHeader = ({ imageStyle, type, heading, subheading, other}) => {
   return (
-    <header className="intro-header" style={{backgroundImage: 'url('+ imagePath + ')' }}>
+    <header className="intro-header" style={imageStyle}>
         <div className="container">
             <div className="row">
                 <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
@@ -19,9 +19,9 @@ const ImageHeader = ({ imagePath, type, heading, subheading, other}) => {
 };
 
 ImageHeader.propTypes = {
-  imagePath: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  heading: React.PropTypes.string.isRequired,
+  imageStyle: React.PropTypes.object,
+  type: React.PropTypes.string,
+  heading: React.PropTypes.string,
   subheading: React.PropTypes.string,
   other: React.PropTypes.node
 };

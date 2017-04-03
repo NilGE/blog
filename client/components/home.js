@@ -1,72 +1,71 @@
 import React from 'react';
 import {Link} from 'react-router';
 import ImageHeader from './common/imageHeader';
+import axios from 'axios';
+import dateFormat from 'dateformat';
 
-const Home = () => {
-  return (
-    <div>
-      <ImageHeader
-        imagePath={"img/home-bg.jpg"}
-        type={"site-heading"}
-        heading={"Clean Blog"}
-        subheading={"A Blog Theme by Start Bootstrap"}
-      />
-      <div className="container">
-          <div className="row">
-              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                  <div className="post-preview">
-                      <Link to="/article">
-                          <h2 className="post-title">
-                              Man must explore, and this is exploration at its greatest
-                          </h2>
-                          <h3 className="post-subtitle">
-                              Problems look mighty small from 150 miles up
-                          </h3>
-                      </Link>
-                      <p className="post-meta">Posted by <Link to="/">Start Bootstrap</Link> on September 24, 2017</p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                      <Link to="/sample">
-                          <h2 className="post-title">
-                              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                          </h2>
-                      </Link>
-                      <p className="post-meta">Posted by <Link to="/">Start Bootstrap</Link> on September 18, 2017</p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                      <Link to="/sample">
-                          <h2 className="post-title">
-                              Science has not yet mastered prophecy
-                          </h2>
-                          <h3 className="post-subtitle">
-                              We predict too much for the next year and yet far too little for the next ten.
-                          </h3>
-                      </Link>
-                      <p className="post-meta">Posted by <Link to="/">Start Bootstrap</Link> on August 24, 2017</p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                      <Link to="/sample">
-                          <h2 className="post-title">
-                              Failure is not an option
-                          </h2>
-                          <h3 className="post-subtitle">
-                              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                          </h3>
-                      </Link>
-                      <p className="post-meta">Posted by <Link to="/">Start Bootstrap</Link> on July 8, 2017</p>
-                  </div>
-                  <hr />
-                  <div className="clearfix">
-                      <Link className="btn btn-secondary float-right" to="/">Older Posts &rarr;</Link>
-                  </div>
-              </div>
-          </div>
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    }
+  }
+
+  componentDidMount() {
+    axios.get('./api/posts').then(res => {
+      this.setState({ posts: res.data})
+    }).catch(err => console.error(err));
+  }
+
+  formatDate(raw_date) {
+    let date = new Date(raw_date);
+    return dateFormat(date, "mmmm dd, yyyy");
+  }
+
+  render() {
+    const imageStyle = {
+      backgroundImage: 'url(img/home-bg.jpg)'
+    };
+
+    return (
+      <div>
+        <ImageHeader
+          imageStyle={imageStyle}
+          type={"site-heading"}
+          heading={"Clean Blog"}
+          subheading={"A Blog Theme by Start Bootstrap"}
+        />
+        <div className="container">
+            <div className="row">
+                <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    {this.state.posts.map(post =>
+                      <div>
+                        <div className="post-preview" key={post._id}>
+                            <Link to={{ pathname: `/article/${post._id}` }}>
+                                <h2 className="post-title">
+                                    {post.title}
+                                </h2>
+                                <h3 className="post-subtitle">
+                                    {post.subtitle}
+                                </h3>
+                            </Link>
+                            <p className="post-meta">Posted by <Link to="/contact">{post.author}</Link> on {this.formatDate(post.date)}</p>
+                        </div>
+                        <hr />
+                      </div>
+                    )}
+                </div>
+            </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+};
+
+Home.contextTypes = {
+  router: React.PropTypes.object.isRequired
 };
 
 export default Home;

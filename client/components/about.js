@@ -2,10 +2,13 @@ import React from 'react';
 import ImageHeader from './common/imageHeader';
 
 const About = () => {
+  const imageStyle = {
+    backgroundImage: 'url(img/about-bg.jpg)'
+  };
   return (
     <div>
       <ImageHeader
-        imagePath={"img/home-bg.jpg"}
+        imageStyle={imageStyle}
         type={"site-heading"}
         heading={"Clean Blog"}
         subheading={"A Blog Theme by Start Bootstrap"}
