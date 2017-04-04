@@ -40,8 +40,8 @@ class Home extends React.Component {
             <div className="row">
                 <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                     {this.state.posts.map(post =>
-                      <div>
-                        <div className="post-preview" key={post._id}>
+                      <div key={post._id}>
+                        <div className="post-preview" >
                             <Link to={{ pathname: `/article/${post._id}` }}>
                                 <h2 className="post-title">
                                     {post.title}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import marked from 'marked';
 import file from './README.md';
 import ImageHeader from './common/imageHeader.js';
@@ -18,7 +19,7 @@ class Article extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get('/api/post/'+this.props.params.post_id).then(res => {
       let post = res.data;
       this.setState({
@@ -29,9 +30,6 @@ class Article extends React.Component {
         content: post.content
       })
     }).catch(err => console.error(err));
-  }
-
-  componentDidMount() {
     prism.highlightAll();
   }
 
@@ -61,7 +59,11 @@ class Article extends React.Component {
 
         <div className="container">
           <div dangerouslySetInnerHTML = {{ __html: marked(content) }} />
+          <hr />
+          <Link style={{color: '#0275d8'}}to={{ pathname: `/markdownEditor/${this.props.params.post_id}` }}>Edit</Link>
         </div>
+
+
       </div>
     );
   }

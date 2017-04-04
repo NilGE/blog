@@ -24,6 +24,17 @@ class MarkdownEditor extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.params._id != '0') {
+      axios.get('/api/post/'+this.props.params._id).then(res => {
+        let post = res.data;
+        this.setState({
+          title: post.title,
+          subtitle: post.subtitle,
+          author: post.author,
+          content: post.content
+        });
+      }).catch(err => console.error(err));
+    }
     prism.highlightAll();
   }
 
@@ -31,13 +42,12 @@ class MarkdownEditor extends React.Component {
     prism.highlightAll();
   }
 
-  addNewPost(post) {
-    axios.post('/api/addPost', post).then(res => console.log(res)).catch(err => console.error(err));
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.addNewPost(this.state);
+    let path = this.props.params._id == '0' ? '/api/addPost' : '/api/updatePost';
+    axios.post(path, this.state).then(res => {
+      this.context.router.push('/article/'+res.data._id);
+    }).catch(err => console.error(err));
   }
 
   render() {
@@ -55,14 +65,14 @@ class MarkdownEditor extends React.Component {
         <div className="container-fluid">
           <form onSubmit={this.handleSubmit}>
             <div className="col-xs-12 col-sm-12 text-center">
-              <input  type="text" name="title" placeholder="title" onChange={this.handleChange} />
-              <input  type="text" name="subtitle" placeholder="subtitle" onChange={this.handleChange} />
-              <input  type="text" name="author" placeholder="author" onChange={this.handleChange} />
+              <input  type="text" name="title" placeholder="title" value={this.state.title} onChange={this.handleChange} />
+              <input  type="text" name="subtitle" placeholder="subtitle" value={this.state.subtitle} onChange={this.handleChange} />
+              <input  type="text" name="author" placeholder="author" value={this.state.author} onChange={this.handleChange} />
             </div>
       			<div className="row">
       				<div className="col-xs-12 col-sm-6">
       					<h3>Markdown</h3>
-      					<textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here" defaultValue={this.state.content} onChange={this.handleChange}></textarea>
+      					<textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here" value={this.state.content} onChange={this.handleChange}></textarea>
       				</div>
       				<div className="col-xs-12 col-sm-6">
       					<h3>Preview</h3>
@@ -79,5 +89,9 @@ class MarkdownEditor extends React.Component {
   	);
   }
 }
+
+MarkdownEditor.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default MarkdownEditor;

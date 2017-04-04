@@ -10,7 +10,7 @@ class App extends React.Component {
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu <i className="fa fa-bars"></i>
                 </button>
-                <Link className="navbar-brand page-scroll" href="index.html">Start Bootstrap</Link>
+                <Link className="navbar-brand page-scroll" to="/">Start Bootstrap</Link>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
@@ -26,14 +26,14 @@ class App extends React.Component {
                             <Link className="nav-link page-scroll" to="/contact">Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/markdownEditor">New Post</Link>
+                            <Link className="nav-link page-scroll" to="/markdownEditor/0">New Post</Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        
+
         {this.props.children}
       </div>
     );

@@ -17,6 +17,6 @@ export default (
     <Route path="/contact" component={Contact}></Route>
     <Route path="/sample" component={Sample}></Route>
     <Route path="/article/:post_id" component={Article}></Route>
-    <Route path="/markdownEditor" component={MarkdownEditor}></Route>
+    <Route path="/markdownEditor/:_id" component={MarkdownEditor}></Route>
   </Route>
 );
