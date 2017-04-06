@@ -15,7 +15,8 @@ class Article extends React.Component {
       subtitle: '',
       author: '',
       date: '',
-      content: ''
+      content: '',
+      tags: []
     };
   }
 
@@ -27,7 +28,8 @@ class Article extends React.Component {
         subtitle: post.subtitle,
         author: post.author,
         date: this.formatDate(post.date),
-        content: post.content
+        content: post.content,
+        tags: post.tags
       })
     }).catch(err => console.error(err));
     prism.highlightAll();
@@ -46,7 +48,7 @@ class Article extends React.Component {
     const imageStyle = {
       backgroundImage: 'url(img/post-bg.jpg)'
     };
-    const {title, subtitle, author, date, content} = this.state;
+    const {title, subtitle, author, date, content, tags} = this.state;
     return (
       <div>
         <ImageHeader
@@ -59,11 +61,18 @@ class Article extends React.Component {
 
         <div className="container">
           <div dangerouslySetInnerHTML = {{ __html: marked(content) }} />
-          <hr />
+          <br/>
+
+          <span><i className="fa fa-tags" aria-hidden="true"></i>
+            {
+              tags.map(tag =>
+                <Link style={{color: '#0275d8'}} to="#" > {tag.name} </Link>
+              )
+            }
+          </span>
+          <hr/>
           <Link style={{color: '#0275d8'}}to={{ pathname: `/markdownEditor/${this.props.params.post_id}` }}>Edit</Link>
         </div>
-
-
       </div>
     );
   }
