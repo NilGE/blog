@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageHeader from './common/imageHeader';
+import ImageHeader from '../common/imageHeader';
 
 const About = () => {
   const imageStyle = {

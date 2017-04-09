@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import marked from 'marked';
-import file from './README.md';
-import ImageHeader from './common/imageHeader.js';
+import ImageHeader from '../common/imageHeader.js';
 import axios from 'axios';
 import dateFormat from 'dateformat';
-import prism from './common/prism';
+import prism from '../common/prism';
 
-class Article extends React.Component {
+class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,4 +77,4 @@ class Article extends React.Component {
   }
 };
 
-export default Article;
+export default Post;

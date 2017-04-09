@@ -1,8 +1,8 @@
 import React from 'react';
 import marked from 'marked';
 import axios from 'axios';
-import ImageHeader from './common/imageHeader';
-import prism from './common/prism';
+import ImageHeader from '../common/imageHeader';
+import prism from '../common/prism';
 import { WithContext as ReactTags } from 'react-tag-input';
 
 class MarkdownEditor extends React.Component {

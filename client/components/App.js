@@ -20,10 +20,10 @@ class App extends React.Component {
                             <Link className="nav-link page-scroll" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/posts">Sample Post</Link>
+                            <Link className="nav-link page-scroll" to="/contact">Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/contact">Contact</Link>
+                            <Link className="nav-link page-scroll" to="#">Search</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link page-scroll" to="/markdownEditor/0">New Post</Link>
