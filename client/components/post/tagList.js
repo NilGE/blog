@@ -1,34 +1,41 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ImageHeader from './common/imageHeader';
+import ImageHeader from '../common/imageHeader';
 import axios from 'axios';
-import List from './post/list';
-import NavBtns from './post/navBtns';
+import List from './list';
+import NavBtns from './navBtns';
 
-class Home extends React.Component {
+class TagList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
       limit: 5,
       skip: 0,
-      total: 0
+      total: 0,
     };
     this.handleClickOlderPost = this.handleClickOlderPost.bind(this);
     this.handleClickNewerPost = this.handleClickNewerPost.bind(this);
   }
+
   refreshPosts(skip, limit) {
-    axios.post('/api/postList', {limit: limit, skip: skip}).then(res => {
-      this.setState({posts: res.data});
-    }).catch(err => console.log(err));
+    axios.post('/api/getPostsWithCurrentTag', {_id: this.props.location.query.tag, limit: limit, skip: skip}).then(res => {
+      this.setState({posts: res.data.posts, total: res.data.total});
+    }).catch(err => console.error(err));
   }
 
   componentDidMount() {
     const { limit, skip } = this.state;
-    axios.get('/api/getNumOfPosts').then(res => {
-      this.setState({total: res.data.count});
-    });
     this.refreshPosts(skip, limit);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let skip = 0;
+    let limit = 5;
+    this.setState({ skip: skip, limit: limit});
+    axios.post('/api/getPostsWithCurrentTag', {_id: nextProps.location.query.tag, limit: limit, skip: skip}).then(res => {
+      this.setState({posts: res.data.posts, total: res.data.total});
+    }).catch(err => console.error(err));
   }
 
   handleClickOlderPost(e) {
@@ -54,6 +61,7 @@ class Home extends React.Component {
   render () {
     const imageStyle = {
       backgroundImage: 'url(img/home-bg.jpg)',
+      height: '100px'
     };
     return (
       <div>
@@ -90,4 +98,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default TagList;

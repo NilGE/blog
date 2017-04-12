@@ -33,8 +33,8 @@ class MarkdownEditor extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.params._id != '0') {
-      axios.get('/api/post/'+this.props.params._id).then(res => {
+    if (this.props.location.query.post) {
+      axios.get('/api/post/'+this.props.location.query.post).then(res => {
         let post = res.data;
         axios.post('/api/getTags', post.tags).then(res => {
           this.setState({
@@ -49,6 +49,18 @@ class MarkdownEditor extends React.Component {
       }).catch(err => console.error(err));
     }
     prism.highlightAll();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.location.query.post) {
+      this.setState({
+        title: '',
+        subtitle: '',
+        author: '',
+        content: '',
+        tags: []
+      });
+    }
   }
 
   componentDidUpdate() {
@@ -76,9 +88,8 @@ class MarkdownEditor extends React.Component {
     axios.all(promises).then(() => {
       this.setState({tags: tags});
       // add post
-      let path = this.props.params._id == '0' ? '/api/addPost' : '/api/updatePost';
+      let path = this.props.location.query.post == null? '/api/addPost' : '/api/updatePost';
       axios.post(path, this.state).then(res => {
-        console.log(res);
         // associate tags with post
         let promises = [];
         tags.map(tag => {
@@ -87,10 +98,9 @@ class MarkdownEditor extends React.Component {
             post_id: res.data._id
           });
           promises.push(curr);
-          curr.then(res => console.log(res)).catch(err => console.error(err));
         });
         axios.all(promises).then(() => {
-          this.context.router.push('/article/'+res.data._id);
+          this.context.router.push('/post/'+res.data._id);
         });
       }).catch(err => console.error(err));
     });
@@ -105,7 +115,6 @@ class MarkdownEditor extends React.Component {
             post_id: this.state._id
           };
           axios.post('/api/removePostFromTagList', data).then(res => {
-            console.log(res);
             tags.splice(i, 1);
             this.setState({tags: tags});
           }).catch(err => console.error);
@@ -117,7 +126,6 @@ class MarkdownEditor extends React.Component {
   handleAddition(tag) {
       let tags = this.state.tags;
       axios.post('/api/getTagByName', {name: tag}).then(res => {
-        console.log(res);
         if (!res.data) {
           tags.push({name: tag});
         } else {

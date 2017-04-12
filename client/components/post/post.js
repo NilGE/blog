@@ -65,12 +65,12 @@ class Post extends React.Component {
           <span><i className="fa fa-tags" aria-hidden="true"></i>
             {
               tags.map(tag =>
-                <Link style={{color: '#0275d8'}} to="#" > {tag.name} </Link>
+                <Link key={tag._id} style={{color: '#0275d8'}} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} </Link>
               )
             }
           </span>
           <hr/>
-          <Link style={{color: '#0275d8'}}to={{ pathname: `/markdownEditor/${this.props.params.post_id}` }}>Edit</Link>
+          <Link style={{color: '#0275d8'}}to={{ pathname: '/markdownEditor', query: {post: this.props.params.post_id} }}>Edit</Link>
         </div>
       </div>
     );

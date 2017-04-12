@@ -9,6 +9,19 @@ router.get('/posts', (req, res) => {
   Post.find({}).then(doc => res.send(doc)).catch(console.error);
 });
 
+router.post('/postList', (req, res) => {
+  Post.find({}).select("_id title subtitle author tags date")
+               .sort({date: -1})
+               .skip(req.body.skip)
+               .limit(req.body.limit)
+               .then(doc => res.send(doc))
+               .catch(console.error);
+});
+
+router.get('/getNumOfPosts', (req, res) => {
+  Post.count().then(count => res.send({count})).catch(console.error);
+});
+
 // add a new post
 router.post('/addPost', (req, res) => {
   new Post(req.body).save().then(post => res.send(post)).catch(console.error);
@@ -66,6 +79,18 @@ router.post('/removePostFromTagList', (req, res) => {
   Tag.findOne({'_id': req.body.tag_id}).then(tag => {
     tag.posts.pull(req.body.post_id);
     tag.save().then(tag => res.send(tag)).catch(console.error);
+  }).catch(console.error);
+});
+
+router.post('/getPostsWithCurrentTag', (req, res) => {
+  Tag.findOne({'_id': req.body._id}).then(tag => {
+    Post.find({'_id': { $in: tag.posts}})
+        .select("_id title subtitle author tags date")
+        .sort({date: -1})
+        .skip(req.body.skip)
+        .limit(req.body.limit)
+        .then(posts => res.send({ posts: posts, total: tag.posts.length }))
+        .catch(console.error);
   }).catch(console.error);
 });
 
