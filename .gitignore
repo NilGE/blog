@@ -46,3 +46,6 @@ public/style.css
 # Images
 server/media
 public/img
+
+# solr
+solr-6.5.0

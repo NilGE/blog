@@ -10,9 +10,18 @@ class App extends React.Component {
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu <i className="fa fa-bars"></i>
                 </button>
-                <Link className="navbar-brand page-scroll" to="/">Start Bootstrap</Link>
+                <Link className="navbar-brand page-scroll" to="/contact">Nilge</Link>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
+
                     <ul className="navbar-nav ml-auto">
+                        <form className="navbar-form form-inline" role="search">
+                          <div className="input-group serach-group">
+                              <input type="text" className="form-control serach-input" placeholder="Search" name="q" />
+                              <div className="input-group-btn">
+                                  <button className="btn btn-default serach-btn" type="submit"><i className="fa fa-search"></i></button>
+                              </div>
+                          </div>
+                        </form>
                         <li className="nav-item">
                             <Link className="nav-link page-scroll" to="/home">Home</Link>
                         </li>

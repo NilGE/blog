@@ -60,7 +60,7 @@ class Home extends React.Component {
         <ImageHeader
           imageStyle={imageStyle}
           type={"site-heading"}
-          heading={"Post List"}
+          heading={"Tech Blog"}
         />
         <div className="container">
           <div className="row">

@@ -29,9 +29,10 @@ class Post extends React.Component {
         date: this.formatDate(post.date),
         content: post.content,
         tags: post.tags
-      })
+      });
+      console.log(marked(post.content));
+      prism.highlightAll();
     }).catch(err => console.error(err));
-    prism.highlightAll();
   }
 
   componentDidUpdate() {
@@ -65,7 +66,7 @@ class Post extends React.Component {
           <span><i className="fa fa-tags" aria-hidden="true"></i>
             {
               tags.map(tag =>
-                <Link key={tag._id} style={{color: '#0275d8'}} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} </Link>
+                <Link key={tag._id} style={{color: '#0275d8'}} to={{ pathname: '/tagList', query: {tag: tag._id} }} > | {tag.name} </Link>
               )
             }
           </span>

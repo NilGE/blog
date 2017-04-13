@@ -21,3 +21,25 @@
   border-width: 1px;
   border-style: solid;
 }
+
+.btn.btn-default.serach-btn {
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	border: 1px solid transparent;
+	background-color: white;
+	padding: 10px 15px;
+}
+
+.btn.btn-default.serach-btn:hover {
+	color: rgb(2, 117, 216);
+}
+
+
+
+.serach-input {
+	border: 1px solid white;
+}
+
+.navbar-form.form-inline {
+	margin-right: 50px;
+}
