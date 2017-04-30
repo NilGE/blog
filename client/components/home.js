@@ -53,38 +53,28 @@ class Home extends React.Component {
 
   render () {
     const imageStyle = {
-      backgroundImage: 'url(img/home-bg.jpg)',
+      background: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg05.jpg) center center / cover no-repeat'
     };
     return (
-      <div>
+      <div id="body-wrapper">
         <ImageHeader
           imageStyle={imageStyle}
-          type={"site-heading"}
+          type={"header full-screen parallax"}
           heading={"Tech Blog"}
+          other={'<a class="scroll-btn" href="#content"><span></span></a>'}
         />
-        <div className="container">
-          <div className="row">
-              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-                  <List
-                    posts={this.state.posts}
-                  />
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-              </div>
-          </div>
-        </div>
+        <main id="content">
+          <List
+            posts={this.state.posts}
+          />
+          <NavBtns
+            skip={this.state.skip}
+            limit={this.state.limit}
+            total={this.state.total}
+            handleClickNewerPost={this.handleClickNewerPost}
+            handleClickOlderPost={this.handleClickOlderPost}
+          />
+        </main>
       </div>
     );
   }

@@ -49,3 +49,6 @@ public/img
 
 # solr
 solr-6.5.0
+
+# css
+public/css/style.css

@@ -94,5 +94,33 @@ router.post('/getPostsWithCurrentTag', (req, res) => {
   }).catch(console.error);
 });
 
+router.post('/searchPost', (req, res) => {
+  Post.find({ $text: {
+      $search: req.body.query,
+      $language: 'en'
+  }}).select("_id title subtitle author tags date")
+     .sort({date: -1})
+     .skip(req.body.skip)
+     .limit(req.body.limit)
+     .then(posts => res.send({ posts: posts, total: posts.length }))
+     .catch(console.error);
+});
+
+router.post('/searchPostByTag', (req, res) => {
+  Tag.findOne({'name': req.body.query}).then(tag => {
+    if (tag) {
+      Post.find({'_id': { $in: tag.posts}})
+          .select("_id title subtitle author tags date")
+          .sort({date: -1})
+          .skip(req.body.skip)
+          .limit(req.body.limit)
+          .then(posts => res.send({ posts: posts, total: tag.posts.length }))
+          .catch(console.error);
+    } else {
+      res.send({posts: [], total: 0});
+    }
+  }).catch(console.error);
+});
+
 
 export default router;

@@ -2,13 +2,17 @@ import React from 'react'
 
 const NavBtns = ({skip, limit, total, handleClickNewerPost, handleClickOlderPost}) => {
   const newerPostBtn = (
-    <button onClick={handleClickNewerPost} className="btn btn-secondary float-left">&larr; Newer Posts</button>
+    <button onClick={handleClickNewerPost} className="btn newer-post">
+      <i className="fa fa-long-arrow-left" aria-hidden="true"></i> Newer Posts
+    </button>
   );
   const orderPostBtn = (
-    <button onClick={handleClickOlderPost} className="btn btn-secondary float-right">Older Posts &rarr;</button>
+    <button onClick={handleClickOlderPost} className="btn older-post">
+      Older Posts <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+    </button>
   );
   return (
-    <div className="clearfix">
+    <div className="pagination">
       { skip == 0 ? '' : newerPostBtn }
       { skip + limit >= total ? '' : orderPostBtn }
     </div>

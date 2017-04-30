@@ -30,7 +30,6 @@ class Post extends React.Component {
         content: post.content,
         tags: post.tags
       });
-      console.log(marked(post.content));
       prism.highlightAll();
     }).catch(err => console.error(err));
   }
@@ -46,33 +45,34 @@ class Post extends React.Component {
 
   render() {
     const imageStyle = {
-      backgroundImage: 'url(img/post-bg.jpg)'
+      background: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg03.jpg) center center / cover no-repeat'
     };
     const {title, subtitle, author, date, content, tags} = this.state;
     return (
-      <div>
+      <div id="body-wrapper">
         <ImageHeader
           imageStyle={imageStyle}
-          type={"post-heading"}
+          type={"header"}
           heading={title}
           subheading={subtitle}
-          other={'Posted by <a href="#">'+author+'</a> on '+ date}
         />
-
-        <div className="container">
-          <div dangerouslySetInnerHTML = {{ __html: marked(content) }} />
-          <br/>
-
-          <span><i className="fa fa-tags" aria-hidden="true"></i>
-            {
-              tags.map(tag =>
-                <Link key={tag._id} style={{color: '#0275d8'}} to={{ pathname: '/tagList', query: {tag: tag._id} }} > | {tag.name} </Link>
-              )
-            }
-          </span>
-          <hr/>
-          <Link style={{color: '#0275d8'}}to={{ pathname: '/markdownEditor', query: {post: this.props.params.post_id} }}>Edit</Link>
-        </div>
+        <main id="content">
+          <article className="post post-article">
+            <div className="post-header">
+              <h1 className="post-title">{title}</h1>
+              <div className="post-meta">
+                  <img className="author-thumb" src="img/avatar.JPG" alt="Nilge" />
+                  <Link to="/contact">{author}</Link> on
+                    {tags.map(tag =>
+                      <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} | </Link>
+                    )} <time>{date}</time>
+              </div>
+            </div>
+            <div className="post-content">
+              <div dangerouslySetInnerHTML = {{ __html: marked(content) }}></div>
+            </div>
+          </article>
+        </main>
       </div>
     );
   }

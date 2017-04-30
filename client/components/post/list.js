@@ -6,25 +6,27 @@ const List = ({posts}) => {
   return (
     <div>
       {posts.map(post =>
-        <div key={post._id}>
-          <div className="post-preview" >
-              <Link to={{ pathname: `/post/${post._id}` }}>
-                  <h2 className="post-title">
-                      {post.title}
-                  </h2>
-                  <h3 className="post-subtitle">
-                      {post.subtitle}
-                  </h3>
-              </Link>
-              <p className="post-meta">
-                <Link to="/contact">{post.author}</Link> on
-                  {post.tags.map(tag =>
-                    <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} </Link>
-                  )} - {dateFormatter(post.date)}
-              </p>
+        <article className="post" key={post._id}>
+          <div className="post-header">
+              <h2 className="post-title">
+                  <Link to={{ pathname: `/post/${post._id}` }}>
+                    <h2 className="post-title">
+                        {post.title}
+                    </h2>
+                  </Link>
+              </h2>
           </div>
-          <hr />
-        </div>
+          <div className="post-snippet">
+              <p>{post.subtitle}</p>
+          </div>
+          <div className="post-meta">
+              <img className="author-thumb" src="img/avatar.JPG" alt="Nilge" />
+              <Link to="/contact">{post.author}</Link> on
+                {post.tags.map(tag =>
+                  <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} | </Link>
+                )} <time>{dateFormatter(post.date)}</time>
+          </div>
+        </article>
       )}
     </div>
   )

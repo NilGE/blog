@@ -1,10 +1,12 @@
 import express from 'express';
 import config from '../config/config';
+import path from 'path';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
+import sassMiddleware from 'node-sass-middleware';
 
 import mongoose from 'mongoose';
 import apiRouter from './api/index';
@@ -14,12 +16,20 @@ const app = express();
 
 // webpack and hotlaod configuration
 const compiler = webpack(webpackConfig);
+
+app.use(sassMiddleware({
+	src: path.join(__dirname, '../sass'),
+	dest: path.join(__dirname, '../public'),
+  // debug: true,
+	outputStyle: 'extended'
+}));
 app.use(webpackMiddleware(compiler, {
   hot: true,
   publicPath: webpackConfig.output.publicPath,
   noInfo: true
 }));
 app.use(webpackHotMiddleware(compiler));
+
 
 // Database configuration
 app.use(bodyParser.json());

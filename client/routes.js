@@ -7,6 +7,7 @@ import Contact from './components/info/contact';
 import Post from './components/post/post';
 import MarkdownEditor from './components/post/markdownEditor';
 import TagList from './components/post/tagList';
+import SearchList from './components/post/searchList';
 
 export default (
   <Route path="/" component={App}>
@@ -17,5 +18,6 @@ export default (
     <Route path="/post/:post_id" component={Post}></Route>
     <Route path="/markdownEditor" component={MarkdownEditor}></Route>
     <Route path="/tagList" component={TagList}></Route>
+    <Route path="/search" component={SearchList}></Route>
   </Route>
 );

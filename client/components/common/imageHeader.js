@@ -2,18 +2,12 @@ import React from 'react';
 
 const ImageHeader = ({ imageStyle, type, heading, subheading, other}) => {
   return (
-    <header className="intro-header" style={imageStyle}>
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                    <div className={type}>
-                        <h1>{heading}</h1>
-                        <h2 className="subheading">{subheading}</h2>
-                        <span className="meta" dangerouslySetInnerHTML={{__html: other}} />
-                    </div>
-                </div>
-            </div>
+    <header className={type} style={imageStyle}>
+        <div className="title-group">
+            <h1 className="maintitle">{heading}</h1>
+            <h2 className="subtitle">{subheading}</h2>
         </div>
+        <span className="meta" dangerouslySetInnerHTML={{__html: other}} />
     </header>
   );
 };

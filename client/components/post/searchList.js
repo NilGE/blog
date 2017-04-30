@@ -5,37 +5,43 @@ import axios from 'axios';
 import List from './list';
 import NavBtns from './navBtns';
 
-class TagList extends React.Component {
+class SearchList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: '',
       posts: [],
       limit: 5,
       skip: 0,
       total: 0
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickOlderPost = this.handleClickOlderPost.bind(this);
     this.handleClickNewerPost = this.handleClickNewerPost.bind(this);
   }
 
-  refreshPosts(skip, limit) {
-    axios.post('/api/getPostsWithCurrentTag', {_id: this.props.location.query.tag, limit: limit, skip: skip}).then(res => {
-      this.setState({posts: res.data.posts, total: res.data.total});
-    }).catch(err => console.error(err));
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value});
   }
 
-  componentDidMount() {
+  handleSubmit(e) {
+    e.preventDefault();
     const { limit, skip } = this.state;
-    this.refreshPosts(skip, limit);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let skip = 0;
-    let limit = 5;
-    this.setState({ skip: skip, limit: limit});
-    axios.post('/api/getPostsWithCurrentTag', {_id: nextProps.location.query.tag, limit: limit, skip: skip}).then(res => {
-      this.setState({posts: res.data.posts, total: res.data.total});
-    }).catch(err => console.error(err));
+    let query = this.state.query;
+    if (query.includes(":")) {
+      query = query.split(":")[1].trim();
+      axios.post('/api/searchPostByTag', {query: query, limit: limit, skip: skip}).then(res => {
+        this.setState({posts: res.data.posts, total: res.data.total});
+      }).catch(err => console.error(err));
+    } else {
+      if (query.includes(" ")) {
+        query = "\""+query+"\"";
+      }
+      axios.post('/api/searchPost', {query: query, limit: limit, skip: skip}).then(res => {
+        this.setState({posts: res.data.posts, total: res.data.total});
+      }).catch(err => console.error(err));
+    }
   }
 
   handleClickOlderPost(e) {
@@ -68,8 +74,25 @@ class TagList extends React.Component {
         <ImageHeader
           imageStyle={imageStyle}
           type={"site-heading"}
-          heading={"Post List"}
+          heading={""}
         />
+      <div className="search-input-block">
+          <form onSubmit={this.handleSubmit} >
+              <div className="row">
+                <div className="col-md-6 offset-md-3">
+                  <div className="input-group">
+                      <input name="query" type="text" className="form-control input-lg" placeholder="Type what you want to search here" onChange={this.handleChange} />
+                      <span className="input-group-btn">
+                          <button className="btn btn-success" type="submit">
+                              Search
+                          </button>
+                      </span>
+                  </div>
+                </div>
+            	</div>
+            </form>
+        </div>
+        <br />
         <div className="container">
           <div className="row">
               <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
@@ -98,4 +121,4 @@ class TagList extends React.Component {
   }
 }
 
-export default TagList;
+export default SearchList;

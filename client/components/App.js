@@ -2,44 +2,38 @@ import React from 'react';
 import {Link} from 'react-router';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
+  }
+
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("body-wrapper").style.marginRight = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,.4)";
+  }
+
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("body-wrapper").style.marginRight = "0";
+    document.body.style.backgroundColor = "white";
+  }
+
   render() {
     return (
       <div>
-        <nav className="navbar fixed-top navbar-toggleable-md navbar-light" id="mainNav">
-            <div className="container">
-                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu <i className="fa fa-bars"></i>
-                </button>
-                <Link className="navbar-brand page-scroll" to="/contact">Nilge</Link>
-                <div className="collapse navbar-collapse" id="navbarResponsive">
-
-                    <ul className="navbar-nav ml-auto">
-                        <form className="navbar-form form-inline" role="search">
-                          <div className="input-group serach-group">
-                              <input type="text" className="form-control serach-input" placeholder="Search" name="q" />
-                              <div className="input-group-btn">
-                                  <button className="btn btn-default serach-btn" type="submit"><i className="fa fa-search"></i></button>
-                              </div>
-                          </div>
-                        </form>
-                        <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/home">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/about">About</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/contact">Contact</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link page-scroll" to="/markdownEditor">New Post</Link>
-                        </li>
-                    </ul>
-                </div>
+        <div className="nav">
+            <button className="btn menu-button" onClick={this.openNav}><i className="fa fa-bars" aria-hidden="true"></i> Menu</button>
+            <div id="mySidenav" className="sidenav">
+                <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
+                <Link to="/home">Home</Link>
+                <Link to="/about">About</Link>
+                <Link to="/contact">Contact</Link>
+                <Link to="/markdownEditor">New Post</Link>
+                <Link to="/search">Search</Link>
             </div>
-        </nav>
-
-
+        </div>
         {this.props.children}
       </div>
     );

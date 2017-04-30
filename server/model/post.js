@@ -11,4 +11,6 @@ const postSchema = new Schema({
     tags: {type: Array}
 }, {collection: "post"});
 
+postSchema.index({title: 'text', subtitle: 'text', content: 'text'});
+
 export default mongoose.model('Post', postSchema);
