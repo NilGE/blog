@@ -1,5 +1,5 @@
 import React from 'react';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 import axios from 'axios';
 import ImageHeader from '../common/imageHeader';
 import prism from '../common/prism';
@@ -152,6 +152,7 @@ class MarkdownEditor extends React.Component {
       backgroundImage: 'url(img/editor-bg-min.jpeg)',
       height: '100px'
     };
+    const md = new Remarkable();
     return (
       <div>
         <ImageHeader
@@ -181,7 +182,7 @@ class MarkdownEditor extends React.Component {
       				</div>
       				<div className="col-xs-12 col-sm-6">
       					<h3>Preview</h3>
-      					<div id="preview" dangerouslySetInnerHTML = {{ __html: marked(this.state.content) }}></div>
+      					<div id="preview" dangerouslySetInnerHTML = {{ __html: md.render(this.state.content) }}></div>
       				</div>
               <div className="col-xs-12 col-sm-12 text-center">
                 <button type="submit" className="btn btn-success btn-lg">Sumbit</button>

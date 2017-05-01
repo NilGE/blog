@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 import ImageHeader from '../common/imageHeader.js';
 import axios from 'axios';
 import dateFormat from 'dateformat';
 import prism from '../common/prism';
+import mathBlock from '../extension/remarkable-ext/math-block';
+import mathInline from '../extension/remarkable-ext/math-inline';
+import mathBlockTexlike from '../extension/remarkable-ext/math-block-texlike';
 
 class Post extends React.Component {
   constructor(props) {
@@ -48,6 +51,10 @@ class Post extends React.Component {
       background: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg03.jpg) center center / cover no-repeat'
     };
     const {title, subtitle, author, date, content, tags} = this.state;
+    const md = new Remarkable();
+    md.use(mathBlock);
+    md.use(mathInline);
+    md.use(mathBlockTexlike);
     return (
       <div id="body-wrapper">
         <ImageHeader
@@ -69,7 +76,7 @@ class Post extends React.Component {
               </div>
             </div>
             <div className="post-content">
-              <div dangerouslySetInnerHTML = {{ __html: marked(content) }}></div>
+              <div dangerouslySetInnerHTML = {{ __html: md.render(content) }}></div>
             </div>
           </article>
         </main>
