@@ -157,10 +157,6 @@ p, ul, ol, dl {
   background-size: cover; }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-header {
-  transition: margin-right .5s;
-  padding: 0px; }
-
 /* attched effect */
 header::after {
   position: absolute;

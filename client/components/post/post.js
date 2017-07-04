@@ -48,7 +48,7 @@ class Post extends React.Component {
 
   render() {
     const imageStyle = {
-      background: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg03.jpg) center center / cover no-repeat'
+      backgroundImage: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg03.jpg)'
     };
     const {title, subtitle, author, date, content, tags} = this.state;
     const md = new Remarkable();
@@ -59,7 +59,7 @@ class Post extends React.Component {
       <div id="body-wrapper">
         <ImageHeader
           imageStyle={imageStyle}
-          type={"header"}
+          type={"header parallax"}
           heading={title}
           subheading={subtitle}
         />
