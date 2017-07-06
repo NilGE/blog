@@ -53,7 +53,7 @@ class Home extends React.Component {
 
   render () {
     const imageStyle = {
-      backgroundImage: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg05.jpg)'
+      backgroundImage: 'url(/img/home.jpg)'
     };
     return (
       <div id="body-wrapper">

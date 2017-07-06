@@ -48,7 +48,7 @@ class Post extends React.Component {
 
   render() {
     const imageStyle = {
-      backgroundImage: 'url(http://www.nxworld.net/codepen/css-scroll-down-button/bg03.jpg)'
+      backgroundImage: 'url(img/post.jpg)'
     };
     const {title, subtitle, author, date, content, tags} = this.state;
     const md = new Remarkable();

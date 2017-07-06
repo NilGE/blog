@@ -42,7 +42,6 @@ h1 {
 
 h2 {
 	font-size: 30px;
-	border-bottom: 1px solid #ccc;
 }
 
 p, ul, ol, dl {
@@ -283,10 +282,6 @@ header::after {
 	word-wrap: break-word;
 }
 
-.post-header h2 {
-  border-bottom: none;
-}
-
 .post-title a {
 	font-size: 36px;
 	color: #4A4A4A;
@@ -404,11 +399,65 @@ header::after {
 }
 
 h1.post-title {
-	font-size: 50px;
+	font-size: 53px;
 }
 
 .post-content {
 	padding-top: 50px;
+	h1 {
+		font-size: 40px;
+	}
+	h2 {
+		margin-top: 35px;
+		padding-bottom: 10px;
+		font-size: 33px;
+		border-bottom: 1px solid #ccc;
+	}
+	h3 {
+		margin-top: 30px;
+		font-size: 25px;
+	}
+	a {
+		color: #4183C4
+	}
+	ul,ol li {
+		margin-left: 25px;
+		p {
+			margin-bottom: 0px;
+		}
+	}
+	pre code {
+		border: 0px;
+	}
+	table {
+		font-family: Helvetica, arial, sans-serif;
+		padding: 0;
+		border-collapse: collapse;
+		tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+		tr {
+			th {
+				font-weight: bold;
+		    border: 1px solid #cccccc;
+		    margin: 0;
+		    padding: 6px 13px;
+			}
+			td {
+		    border: 1px solid #cccccc;
+		    margin: 0;
+		    padding: 6px 13px;
+			}
+		}
+	}
+}
+
+code {
+	margin: 0 2px;
+	padding: 0 5px;
+	white-space: nowrap;
+	border: 1px solid #eaeaea;
+	background-color: #f8f8f8;
+	border-radius: 3px;
 }
 
 div.katex-rendered {

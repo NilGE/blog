@@ -34,8 +34,7 @@ h1 {
   font-size: 36px; }
 
 h2 {
-  font-size: 30px;
-  border-bottom: 1px solid #ccc; }
+  font-size: 30px; }
 
 p, ul, ol, dl {
   -webkit-font-feature-settings: 'liga' 1, 'onum' 1, 'kern' 1;
@@ -254,9 +253,6 @@ header::after {
   border-bottom: #EBF2F6 1px solid;
   word-wrap: break-word; }
 
-.post-header h2 {
-  border-bottom: none; }
-
 .post-title a {
   font-size: 36px;
   color: #4A4A4A; }
@@ -353,10 +349,51 @@ header::after {
   max-width: 850px; }
 
 h1.post-title {
-  font-size: 50px; }
+  font-size: 53px; }
 
 .post-content {
   padding-top: 50px; }
+  .post-content h1 {
+    font-size: 40px; }
+  .post-content h2 {
+    margin-top: 35px;
+    padding-bottom: 10px;
+    font-size: 33px;
+    border-bottom: 1px solid #ccc; }
+  .post-content h3 {
+    margin-top: 30px;
+    font-size: 25px; }
+  .post-content a {
+    color: #4183C4; }
+  .post-content ul, .post-content ol li {
+    margin-left: 25px; }
+    .post-content ul p, .post-content ol li p {
+      margin-bottom: 0px; }
+  .post-content pre code {
+    border: 0px; }
+  .post-content table {
+    font-family: Helvetica, arial, sans-serif;
+    padding: 0;
+    border-collapse: collapse; }
+    .post-content table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    .post-content table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    .post-content table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+
+code {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
 
 div.katex-rendered {
   text-align: center; }
