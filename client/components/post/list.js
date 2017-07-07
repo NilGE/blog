@@ -23,7 +23,7 @@ const List = ({posts}) => {
               <img className="author-thumb" src="img/avatar.JPG" alt="Nilge" />
               <Link to="/contact">{post.author}</Link> on
                 {post.tags.map(tag =>
-                  <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id} }} > {tag.name} | </Link>
+                  <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id, tagName: tag.name} }} > {tag.name} | </Link>
                 )} <time>{dateFormatter(post.date)}</time>
           </div>
         </article>

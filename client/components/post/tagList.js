@@ -68,7 +68,7 @@ class TagList extends React.Component {
         <ImageHeader
           imageStyle={imageStyle}
           type={"header"}
-          heading={'Tag List'}
+          heading={this.props.location.query.tagName}
         />
         <div>
           <List
