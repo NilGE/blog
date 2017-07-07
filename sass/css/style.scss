@@ -51,6 +51,17 @@ p, ul, ol, dl {
 	text-rendering: geometricPrecision;
 }
 
+input {
+	height: 35px;
+	font-size: 14px;
+	border: 1px solid #dfe1e3;
+	border-radius: 4px;
+	padding-left: 10px;
+	font-weight: 400;
+	width: 100%;
+	margin: 0px;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -519,3 +530,147 @@ div.katex-rendered {
 			transform: translateY(0);
 		}
 	}
+
+	/* ==========================================================================
+		9. Editor
+		========================================================================== */
+
+ .editor-header {
+	 min-height: 120px;
+ }
+
+ .editor {
+	 flex-grow: 1;
+	 display: flex;
+	 flex-direction: column;
+	 .title {
+		 height:65px;
+		 border-bottom: #dfe1e3 1px solid;
+		 padding: 0 20px;
+		 display: flex;
+		 flex-direction: row;
+		 align-items: center;
+		 .title-input {
+			 padding: 0px;
+			 border: 0px;
+			 font-size: 30px;
+			 font-weight: 700;
+			 margin-right: auto;
+		 }
+		 .setting {
+			 border: none;
+			 outline: none;
+			 background: 0 0;
+			 font-size: 15px;
+
+			 .setting-icon {
+				 color: gray;
+				 margin: 0 15px;
+			 }
+		 }
+		 .submit-btn {
+			 padding: 0 15px;
+			 margin: 0 15px;
+			 height: 31px;
+			 border-color: #308ddf;
+			 background: #5ba4e5;
+			 color: #fff;
+		 }
+		 .postSetting {
+			 	height: 100%; /* 100% Full-height */
+			 	width: 0; /* 0 width - change this with JavaScript */
+			 	position: fixed; /* Stay in place */
+			 	z-index: 3; /* Stay on top */
+			 	top: 0;
+			 	right: 0;
+				background-color: #fff; /* White*/
+			 	overflow-x: hidden; /* Disable horizontal scroll */
+			 	transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+			 	font-family: "Open Sans", sans-serifscreen;
+				border-left: #dfe1e3 1px solid;
+				.setting-menu-header {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 30px 24px;
+					h4 {
+						font-size: 17px;
+						font-weight: 300;
+					}
+					.closebtn {
+						color: #dfe1e3;
+						font-size: 30px;
+						font-weight: 100;
+					}
+				}
+				.form-group {
+					padding: 15px 24px;
+					label {
+						font-size: 13px;
+						font-weight: 700;
+						color: black;
+					}
+				}
+		 }
+	 }
+	 .content {
+		 width: 100%;
+		 display: flex;
+		 flex-direction: row;
+		 min-height: 500px;
+		 margin-bottom: 20px;
+		 align-items: stretch;
+		 .markdown {
+			 width: 50%;
+			 border: #dfe1e3 1px solid;
+			 border-top: 0;
+			 padding: 20px;
+			 font-size: 1.4rem;
+		 }
+		 .preview {
+			 width: 50%;
+			 margin: 0;
+			 border-bottom: #dfe1e3 1px solid;
+			 padding: 20px;
+		 }
+	 }
+	 textarea:focus, input:focus {
+		 outline: none;
+	 }
+ }
+ /* ==========================================================================
+	 10. Searching
+	 ========================================================================== */
+ .searching-header {
+	 min-height: 150px;
+ }
+ .search-input-block {
+	 text-align: center;
+	 margin: 30px 20px;
+	 .input-group {
+		 .input-group-input {
+			 border-top-right-radius: 0;
+			 border-bottom-right-radius: 0;
+			 position: relative;
+			 min-width: 300px;
+			 font-size: 14px;
+			 width: auto;
+			 padding: 0 10px;
+		 }
+		 .input-group-input:focus {
+			 outline: none;
+		 }
+		 .input-group-btn {
+			 border-top-left-radius: 0;
+			 border-bottom-left-radius: 0;
+			 position: relative;
+			 padding: 0 10px;
+			 font-size: 14px;
+			 border-color: #5ba4e5;
+			 background: #5ba4e5;
+			 color: #fff;
+			 height: 37px;
+			 margin: 0;
+		 }
+	 }
+ }

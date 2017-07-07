@@ -5,17 +5,17 @@ div.ReactTags__tags {
 
 /* Styles for the input */
 div.ReactTags__tagInput {
-    width: 200px;
+    width: 100%;
     border-radius: 2px;
     display: inline-block;
 }
 div.ReactTags__tagInput input.ReactTags__tagInputField,
 div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
-    height: 31px;
+    height: 35px;
     margin: 0;
-    font-size: 12px;
+    font-size: 14px;
     width: 100%;
-    border: 1px solid #eee;
+    border: 1px solid #dfe1e3;
 }
 
 /* Styles for selected tags */

@@ -147,49 +147,76 @@ class MarkdownEditor extends React.Component {
       this.setState({ tags: tags });
   }
 
+  openNav() {
+    document.getElementById("postSetting").style.width = "300px";
+  }
+
+  closeNav() {
+    document.getElementById("postSetting").style.width = "0";
+  }
+
   render() {
     const imageStyle = {
-      backgroundImage: 'url(img/editor-bg-min.jpeg)',
-      height: '100px'
+      backgroundImage: 'url(img/editor-bg-min.jpeg)'
     };
     const md = new Remarkable();
     return (
       <div>
         <ImageHeader
           imageStyle={imageStyle}
-          type={"post-heading"}
+          type={"header editor-header"}
           heading={""}
+          subheading={""}
         />
-        <div className="container-fluid">
-          <form onSubmit={this.handleSubmit}>
-            <div className="col-xs-12 col-sm-12 text-center">
-              <input  type="text" name="title" placeholder="title" value={this.state.title} onChange={this.handleChange} />
-              <input  type="text" name="subtitle" placeholder="subtitle" value={this.state.subtitle} onChange={this.handleChange} />
-              <input  type="text" name="author" placeholder="author" value={this.state.author} onChange={this.handleChange} />
-              <ReactTags
-                tags={this.state.tags}
-                handleDelete={this.handleDelete}
-                handleAddition={this.handleAddition}
-                handleDrag={this.handleDrag}
-                placeholder={'add tags here'}
-                labelField={'name'}
-                />
+      <main className="editor">
+        <form onSubmit={this.handleSubmit}>
+          <div className="title">
+            <input type="text" name="title" placeholder="Your Post Title" value={this.state.title}
+              className="title-input" onChange={this.handleChange} />
+            <a href="javascript:void(0)" className="setting" onClick={this.openNav}>
+              <i className="fa fa-lg fa-cog fa-spin setting-icon"></i>
+            </a>
+            <button type="submit" className="btn submit-btn">Sumbit</button>
+            <div id="postSetting" className="postSetting">
+                <div className="setting-menu-header">
+                  <h4>Post Settings</h4>
+                  <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
+                </div>
+
+                <div className="form-group">
+                  <label for="subtitle">Subtitle</label>
+                  <input type="text" name="subtitle" value={this.state.subtitle}
+                    onChange={this.handleChange} />
+                </div>
+                <div className="form-group">
+                  <label for="author">Author</label>
+                  <input  type="text" name="author" value={this.state.author}
+                    onChange={this.handleChange} />
+                </div>
+                <div className="form-group">
+                  <label for="tags">Tags</label>
+                  <ReactTags
+                                tags={this.state.tags}
+                                handleDelete={this.handleDelete}
+                                handleAddition={this.handleAddition}
+                                handleDrag={this.handleDrag}
+                                placeholder={''}
+                                labelField={'name'}
+                                />
+                </div>
             </div>
-      			<div className="row">
-      				<div className="col-xs-12 col-sm-6">
-      					<h3>Markdown</h3>
-      					<textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here" value={this.state.content} onChange={this.handleChange}></textarea>
-      				</div>
-      				<div className="col-xs-12 col-sm-6">
-      					<h3>Preview</h3>
-      					<div id="preview" dangerouslySetInnerHTML = {{ __html: md.render(this.state.content) }}></div>
-      				</div>
-              <div className="col-xs-12 col-sm-12 text-center">
-                <button type="submit" className="btn btn-success btn-lg">Sumbit</button>
-              </div>
-      			</div>
-          </form>
-    		</div>
+          </div>
+          <div className="content">
+
+              <textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here"
+                value={this.state.content} onChange={this.handleChange}></textarea>
+
+
+              <div className="preview" id="preview" dangerouslySetInnerHTML = {{ __html: md.render(this.state.content) }}></div>
+
+          </div>
+         </form>
+        </main>
       </div>
 
   	);

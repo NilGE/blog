@@ -12,7 +12,6 @@ const About = () => {
         type={"header parallax full-screen"}
         heading={"About"}
         subheading={"Neil Ge"}
-        other={'<a class="scroll-btn" href="#about-content"><span></span></a>'}
       />
       <main id="about-content">
         <article className="post post-article">

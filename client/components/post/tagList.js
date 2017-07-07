@@ -67,31 +67,20 @@ class TagList extends React.Component {
       <div>
         <ImageHeader
           imageStyle={imageStyle}
-          type={"site-heading"}
-          heading={"Post List"}
+          type={"header"}
+          heading={'Tag List'}
         />
-        <div className="container">
-          <div className="row">
-              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-                  <List
-                    posts={this.state.posts}
-                  />
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-              </div>
-          </div>
+        <div>
+          <List
+            posts={this.state.posts}
+          />
+          <NavBtns
+            skip={this.state.skip}
+            limit={this.state.limit}
+            total={this.state.total}
+            handleClickNewerPost={this.handleClickNewerPost}
+            handleClickOlderPost={this.handleClickOlderPost}
+          />
         </div>
       </div>
     );

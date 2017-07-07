@@ -60,7 +60,7 @@ class Home extends React.Component {
         <ImageHeader
           imageStyle={imageStyle}
           type={"header full-screen parallax"}
-          heading={"Tech Blog"}
+          heading={"Nilge's Blog"}
           other={'<a class="scroll-btn" href="#content"><span></span></a>'}
         />
         <main id="content">

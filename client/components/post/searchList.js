@@ -73,48 +73,31 @@ class SearchList extends React.Component {
       <div>
         <ImageHeader
           imageStyle={imageStyle}
-          type={"site-heading"}
-          heading={""}
+          type={"header searching-header"}
+          heading={'Searching'}
         />
-      <div className="search-input-block">
+        <div className="search-input-block">
           <form onSubmit={this.handleSubmit} >
-              <div className="row">
-                <div className="col-md-6 offset-md-3">
-                  <div className="input-group">
-                      <input name="query" type="text" className="form-control input-lg" placeholder="Type what you want to search here" onChange={this.handleChange} />
-                      <span className="input-group-btn">
-                          <button className="btn btn-success" type="submit">
-                              Search
-                          </button>
-                      </span>
-                  </div>
-                </div>
-            	</div>
-            </form>
+            <div className="input-group">
+              <input name="query" type="text" className="input-group-input" placeholder="Type what you want to search here" onChange={this.handleChange} />
+              <button className="btn input-group-btn" type="submit">
+                  Search
+              </button>
+            </div>
+          </form>
         </div>
         <br />
-        <div className="container">
-          <div className="row">
-              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-                  <List
-                    posts={this.state.posts}
-                  />
-                  <NavBtns
-                    skip={this.state.skip}
-                    limit={this.state.limit}
-                    total={this.state.total}
-                    handleClickNewerPost={this.handleClickNewerPost}
-                    handleClickOlderPost={this.handleClickOlderPost}
-                  />
-              </div>
-          </div>
+        <div>
+          <List
+            posts={this.state.posts}
+          />
+          <NavBtns
+            skip={this.state.skip}
+            limit={this.state.limit}
+            total={this.state.total}
+            handleClickNewerPost={this.handleClickNewerPost}
+            handleClickOlderPost={this.handleClickOlderPost}
+          />
         </div>
       </div>
     );

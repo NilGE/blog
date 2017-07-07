@@ -78,6 +78,8 @@ class Post extends React.Component {
             <div className="post-content">
               <div dangerouslySetInnerHTML = {{ __html: md.render(content) }}></div>
             </div>
+            <Link style={{color: '#0275d8'}}to={{ pathname: '/markdownEditor',
+              query: {post: this.props.params.post_id} }}>Edit</Link>
           </article>
         </main>
       </div>

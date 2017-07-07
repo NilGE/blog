@@ -8,6 +8,10 @@ class App extends React.Component {
     this.closeNav = this.closeNav.bind(this);
   }
 
+  componentDidUpdate() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("body-wrapper").style.marginRight = "250px";

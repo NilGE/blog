@@ -12,9 +12,8 @@ const Contact = () => {
         type={"header parallax full-screen"}
         heading={"Contact"}
         subheading={""}
-        other={'<a class="scroll-btn" href="#about-content"><span></span></a>'}
       />
-      <main id="about-content">
+      <main>
         <article className="post post-article">
           <div className="post-content">
             <p>Please contact me using the following information and I will response
