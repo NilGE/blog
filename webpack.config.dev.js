@@ -2,13 +2,19 @@ import webpack from 'webpack';
 
 export default {
   devtool: 'eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './client/index.js'
-  ],
+  entry: {
+    public: [
+      'webpack-hot-middleware/client',
+      './client/index.js'
+    ],
+    admin: [
+      'webpack-hot-middleware/client',
+      './admin/index.js'
+    ]
+  },
   output: {
     path: __dirname + '/public',
-		filename: 'bundle.js',
+		filename: '[name].js',
 		publicPath: '/'
   },
   plugins: [
