@@ -9,11 +9,11 @@ const List = ({posts}) => {
         <article className="post" key={post._id}>
           <div className="post-header">
               <h2 className="post-title">
+                <h2 className="post-title">
                   <Link to={{ pathname: `/post/${post._id}` }}>
-                    <h2 className="post-title">
                         {post.title}
-                    </h2>
                   </Link>
+                </h2>
               </h2>
           </div>
           <div className="post-snippet">

@@ -1,7 +1,16 @@
 import React from 'react';
 
-export default() => {
-  return (
-    <h1>Hello from the other side</h1>
-  );
-};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
+  }
+}
+export default App;

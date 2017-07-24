@@ -1,8 +1,7 @@
 import React from 'react';
 import Remarkable from 'remarkable';
 import axios from 'axios';
-import ImageHeader from '../common/imageHeader';
-import prism from '../common/prism';
+import prism from '../../common/prism';
 import { WithContext as ReactTags } from 'react-tag-input';
 
 class MarkdownEditor extends React.Component {
@@ -161,8 +160,9 @@ class MarkdownEditor extends React.Component {
     };
     const md = new Remarkable();
     return (
+      <div>
       <main className="editor">
-        <form className="editor-form" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div className="title">
             <input type="text" name="title" placeholder="Your Post Title" value={this.state.title}
               className="title-input" onChange={this.handleChange} />
@@ -209,7 +209,9 @@ class MarkdownEditor extends React.Component {
 
           </div>
          </form>
-      </main>
+        </main>
+      </div>
+
   	);
   }
 }
