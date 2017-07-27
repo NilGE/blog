@@ -10,6 +10,7 @@ class App extends React.Component {
 
   componentDidUpdate() {
     document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("body-wrapper").style.marginRight = "0";
   }
 
   openNav() {

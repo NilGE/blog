@@ -1,13 +1,73 @@
 /* ==========================================================================
+  1. Container
+  ========================================================================== */
+#admin {
+  height: 100%; }
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif; }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100%; }
+  .container .navbar {
+    min-width: 280px;
+    background-color: #f4f8fb; }
+    .container .navbar .header {
+      padding: 25px;
+      padding-bottom: 0px;
+      display: flex; }
+      .container .navbar .header .avatar {
+        width: 32px;
+        height: 32px;
+        float: left;
+        margin-right: 9px;
+        border-radius: 20%; }
+    .container .navbar .search {
+      margin: 0;
+      padding: 25px; }
+      .container .navbar .search input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        position: relative;
+        border-right: 0;
+        width: calc(100% - 56px); }
+      .container .navbar .search input:focus {
+        outline: none; }
+      .container .navbar .search .input-group-btn {
+        border: 1px solid #dfe1e3;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0;
+        position: relative;
+        width: 45px;
+        height: 37px;
+        background-color: white;
+        padding: 12px; }
+    .container .navbar .body .section {
+      font-size: 13px;
+      margin-top: 10px;
+      padding-left: 25px; }
+      .container .navbar .body .section a, .container .navbar .body .section a:hover, .container .navbar .body .section a:focus, .container .navbar .body .section a:visited {
+        color: #343f44; }
+      .container .navbar .body .section span {
+        padding-left: 10px; }
+    .container .navbar .body .section:hover {
+      background-color: #d8f1ff; }
+    .container .navbar .body .section:active {
+      background-color: #6dc4f3;
+      color: white; }
+  .container .main {
+    width: calc(100% - 280px); }
+
+/* ==========================================================================
   9. Editor
   ========================================================================== */
-.editor-header {
-  height: 120px; }
-
 .editor {
-  flex-grow: 1;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  height: 100%; }
   .editor .title {
     height: 65px;
     border-bottom: #dfe1e3 1px solid;
@@ -37,6 +97,7 @@
       background: #5ba4e5;
       color: #fff; }
     .editor .title .postSetting {
+      background-color: #f4f8fb;
       height: 100%;
       /* 100% Full-height */
       width: 0;
@@ -47,8 +108,6 @@
       /* Stay on top */
       top: 0;
       right: 0;
-      background-color: #fff;
-      /* White*/
       overflow-x: hidden;
       /* Disable horizontal scroll */
       transition: 0.5s;
@@ -73,17 +132,16 @@
           font-size: 13px;
           font-weight: 700;
           color: black; }
+  .editor .editor-form {
+    height: calc(100% - 66px); }
   .editor .content {
-    width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
-    position: fixed;
     height: 100%; }
     .editor .content .markdown {
       width: 50%;
-      border: #dfe1e3 1px solid;
-      border-top: 0;
+      border: 0px;
+      border-right: #dfe1e3 1px solid;
       padding: 20px;
       font-size: 1.4rem; }
     .editor .content .preview {

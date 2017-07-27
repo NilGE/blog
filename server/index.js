@@ -46,17 +46,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ejs view and public folder configuration
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.get('/', (req, res) => {
-  res.render('index', {
-    content: 'dummy content'
-  });
-});
 app.get('/admin', (req, res) => {
   res.render('admin', {
     content: 'dummy content'
   });
 });
-
+app.get('/admin/*', (req, res) => {
+  res.render('admin', {
+    content: 'dummy content'
+  });
+});
+app.get('*', (req, res) => {
+  res.render('index', {
+    content: 'dummy content'
+  });
+});
 // port listening
 app.listen(config.port, config.host, () => {
   console.info('Magic happens at port ', config.port);

@@ -6,8 +6,8 @@ import Posts from './components/posts';
 
 export default (
   <Route path="/admin" component={App}>
-    <IndexRoute component={Posts}></IndexRoute>
-    <Route path="/posts" component={Posts}></Route>
-    <Route path="/editor" component={MarkdownEditor}></Route>
+    <IndexRoute component={MarkdownEditor}></IndexRoute>
+    <Route path="/admin/posts" component={Posts}></Route>
+    <Route path="/admin/editor" component={MarkdownEditor}></Route>
   </Route>
 );

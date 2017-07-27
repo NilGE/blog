@@ -155,14 +155,10 @@ class MarkdownEditor extends React.Component {
   }
 
   render() {
-    const imageStyle = {
-      backgroundImage: 'url(img/editor-bg-min.jpeg)'
-    };
     const md = new Remarkable();
     return (
-      <div>
       <main className="editor">
-        <form onSubmit={this.handleSubmit}>
+        <form className="editor-form" onSubmit={this.handleSubmit}>
           <div className="title">
             <input type="text" name="title" placeholder="Your Post Title" value={this.state.title}
               className="title-input" onChange={this.handleChange} />
@@ -209,9 +205,7 @@ class MarkdownEditor extends React.Component {
 
           </div>
          </form>
-        </main>
-      </div>
-
+      </main>
   	);
   }
 }
