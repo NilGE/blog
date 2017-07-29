@@ -48,6 +48,9 @@ class MarkdownEditor extends React.Component {
       }).catch(err => console.error(err));
     }
     prism.highlightAll();
+    document.getElementById('submit-btn').classList.remove("success-btn");
+    document.getElementById('submit-btn').classList.add("publish-btn");
+    document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Publish" : "Update";
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,9 +101,9 @@ class MarkdownEditor extends React.Component {
           });
           promises.push(curr);
         });
-        axios.all(promises).then(() => {
-          this.context.router.push('/post/'+res.data._id);
-        });
+        document.getElementById('submit-btn').classList.remove("publish-btn");
+        document.getElementById('submit-btn').classList.add("success-btn");
+        document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Published" : "Updated";
       }).catch(err => console.error(err));
     });
   }
@@ -165,7 +168,7 @@ class MarkdownEditor extends React.Component {
             <a href="javascript:void(0)" className="setting" onClick={this.openNav}>
               <i className="fa fa-lg fa-cog fa-spin setting-icon"></i>
             </a>
-            <button type="submit" className="btn submit-btn">Sumbit</button>
+            <button id="submit-btn" type="submit" className="btn publish-btn">Sumbit</button>
             <div id="postSetting" className="postSetting">
                 <div className="setting-menu-header">
                   <h4>Post Settings</h4>

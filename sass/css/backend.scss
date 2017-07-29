@@ -80,7 +80,7 @@ body {
 }
 
 /* ==========================================================================
-  9. Editor
+  2. Editor
   ========================================================================== */
 .editor {
  display: flex;
@@ -111,13 +111,19 @@ body {
        margin: 0 15px;
      }
    }
-   .submit-btn {
+   .btn {
      padding: 0 15px;
      margin: 0 15px;
      height: 31px;
-     border-color: #308ddf;
-     background: #5ba4e5;
      color: #fff;
+     outline: none;
+   }
+   .publish-btn {
+     background: linear-gradient(#4ab6f0,#2fa5e4 60%,#2fa5e4 90%,#38a9e5);
+   }
+
+   .success-btn {
+     background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
    }
    .postSetting {
       background-color: #f4f8fb;
@@ -169,15 +175,35 @@ body {
      border-right: #dfe1e3 1px solid;
      padding: 20px;
      font-size: 1.4rem;
+     overflow: auto;
    }
    .preview {
      width: 50%;
      margin: 0;
      border-bottom: #dfe1e3 1px solid;
      padding: 20px;
+     overflow: auto;
    }
  }
  textarea:focus, input:focus {
    outline: none;
  }
+}
+
+/* ==========================================================================
+  3. Blog List
+  ========================================================================== */
+
+.post-list {
+  padding: 24px 6vw 3vw;
+  margin: 0 auto;
+  max-width: 1200px;
+  .post-header {
+    .post-title {
+      font-size: 22px;
+    }
+    a, a:hover, a:focus, a:visited {
+      color: #3c484e;
+    }
+  }
 }
