@@ -46,6 +46,9 @@ public/css
 # Images
 server/media
 public/img
+public/css/backend.css
+public/css/common.css
+public/css/frontend.css
 
 # solr
 solr-6.5.0
