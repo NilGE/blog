@@ -20,6 +20,7 @@ class Home extends React.Component {
   refreshPosts(skip, limit) {
     axios.post('/api/postList', {limit: limit, skip: skip}).then(res => {
       this.setState({posts: res.data});
+      console.log(res.data);
     }).catch(err => console.log(err));
   }
 

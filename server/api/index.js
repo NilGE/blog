@@ -10,8 +10,8 @@ router.get('/posts', (req, res) => {
 });
 
 router.post('/postList', (req, res) => {
-  Post.find({}).select("_id title subtitle author tags date")
-               .sort({date: -1})
+  Post.find({}).select("_id title subtitle author tags datetime")
+               .sort({datetime: -1})
                .skip(req.body.skip)
                .limit(req.body.limit)
                .then(doc => res.send(doc))
@@ -86,8 +86,8 @@ router.post('/removePostFromTagList', (req, res) => {
 router.post('/getPostsWithCurrentTag', (req, res) => {
   Tag.findOne({'_id': req.body._id}).then(tag => {
     Post.find({'_id': { $in: tag.posts}})
-        .select("_id title subtitle author tags date")
-        .sort({date: -1})
+        .select("_id title subtitle author tags datetime")
+        .sort({datetime: -1})
         .skip(req.body.skip)
         .limit(req.body.limit)
         .then(posts => res.send({ posts: posts, total: tag.posts.length }))
@@ -99,8 +99,8 @@ router.post('/searchPost', (req, res) => {
   Post.find({ $text: {
       $search: req.body.query,
       $language: 'en'
-  }}).select("_id title subtitle author tags date")
-     .sort({date: -1})
+  }}).select("_id title subtitle author tags datetime")
+     .sort({datetime: -1})
      .skip(req.body.skip)
      .limit(req.body.limit)
      .then(posts => res.send({ posts: posts, total: posts.length }))
@@ -111,8 +111,8 @@ router.post('/searchPostByTag', (req, res) => {
   Tag.findOne({'name': req.body.query}).then(tag => {
     if (tag) {
       Post.find({'_id': { $in: tag.posts}})
-          .select("_id title subtitle author tags date")
-          .sort({date: -1})
+          .select("_id title subtitle author tags datetime")
+          .sort({datetime: -1})
           .skip(req.body.skip)
           .limit(req.body.limit)
           .then(posts => res.send({ posts: posts, total: tag.posts.length }))

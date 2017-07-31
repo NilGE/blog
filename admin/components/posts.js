@@ -13,6 +13,7 @@ class Posts extends React.Component {
 
   componentDidMount() {
     axios.get('/api/posts').then(res => {
+      console.log(res.data);
       this.setState({posts: res.data});
     }).catch(err => console.log(err));
   }

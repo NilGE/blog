@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router';
-import dateFormatter from '../../../server/shared/dateformatter';
 
 const List = ({posts}) => {
   return (
@@ -22,7 +21,7 @@ const List = ({posts}) => {
               <Link to="/contact">{post.author}</Link> on
                 {post.tags.map(tag =>
                   <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id, tagName: tag.name} }} > {tag.name} | </Link>
-                )} <time>{dateFormatter(post.date)}</time>
+                )} <time>{post.datetime}</time>
           </div>
         </article>
       )}
