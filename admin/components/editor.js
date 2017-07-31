@@ -3,9 +3,14 @@ import Remarkable from 'remarkable';
 import axios from 'axios';
 import prism from '../../common/prism';
 import { WithContext as ReactTags } from 'react-tag-input';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
 
 class MarkdownEditor extends React.Component {
 
+  /**
+   * constructor
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -13,24 +18,23 @@ class MarkdownEditor extends React.Component {
       subtitle: '',
       author: '',
       content: '',
-      tags: []
+      tags: [],
+      date: moment(),
+      time: moment().format("hh:mm")
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAddition = this.handleAddition.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
+    this.handleTagsDelete = this.handleTagsDelete.bind(this);
+    this.handleTagsAddition = this.handleTagsAddition.bind(this);
+    this.handleTagsDrag = this.handleTagsDrag.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value});
-  }
-
-  handleTagsChange(e) {
-    this.setState({ [e.target.name]: e.target.value});
-  }
-
+  /**
+   * If post id is not null, fetch post date from database.
+   * Reset the button style, when reload the page, if we changes the button before
+   */
   componentDidMount() {
     if (this.props.location.query.post) {
       axios.get('/api/post/'+this.props.location.query.post).then(res => {
@@ -53,6 +57,9 @@ class MarkdownEditor extends React.Component {
     document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Publish" : "Update";
   }
 
+  /**
+   * If we click new post when the current page is editor, we will clear the page
+   */
   componentWillReceiveProps(nextProps) {
     if (!nextProps.location.query.post) {
       this.setState({
@@ -60,18 +67,27 @@ class MarkdownEditor extends React.Component {
         subtitle: '',
         author: '',
         content: '',
-        tags: []
+        tags: [],
+        date: moment()
       });
     }
   }
 
+  /**
+   * If the page updates (edit the content), the page will re-render the markdown
+   */
   componentDidUpdate() {
     prism.highlightAll();
   }
 
+  /**
+   * submit the current post to backend by api using ajax
+   */
   handleSubmit(e) {
     e.preventDefault();
-    // add tags
+
+
+    // create new tags for those tags do not exist
     let tags = this.state.tags;
     let promises = [];
     for (let i = 0; i < tags.length; i++) {
@@ -88,10 +104,18 @@ class MarkdownEditor extends React.Component {
     }
 
     axios.all(promises).then(() => {
+      // create a post obj
+      let postObj = {
+        title: this.state.title,
+        author: this.state.author,
+        content: this.state.content,
+        tags: tags,
+        datetime: this.state.date.format('MM-DD-YYYY') + ' ' + this.state.time
+      };
       this.setState({tags: tags});
-      // add post
+      // if current post does exist, update current post, otherwise create a post
       let path = this.props.location.query.post == null? '/api/addPost' : '/api/updatePost';
-      axios.post(path, this.state).then(res => {
+      axios.post(path, postObj).then(res => {
         // associate tags with post
         let promises = [];
         tags.map(tag => {
@@ -108,8 +132,17 @@ class MarkdownEditor extends React.Component {
     });
   }
 
-  // tag operations
-  handleDelete(i) {
+  /**
+   * Handle common inputs change
+   */
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value});
+  }
+
+  /**
+   * Handle tags input changes
+   */
+  handleTagsDelete(i) {
         let tags = this.state.tags;
         if (tags[i]._id && this.state._id) {
           let data = {
@@ -125,7 +158,7 @@ class MarkdownEditor extends React.Component {
           this.setState({tags: tags});
         }
   }
-  handleAddition(tag) {
+  handleTagsAddition(tag) {
       let tags = this.state.tags;
       axios.post('/api/getTagByName', {name: tag}).then(res => {
         if (!res.data) {
@@ -139,7 +172,7 @@ class MarkdownEditor extends React.Component {
         this.setState({tags: tags});
       }).catch(err => console.error(err));
   }
-  handleDrag(tag, currPos, newPos) {
+  handleTagsDrag(tag, currPos, newPos) {
       let tags = this.state.tags;
       // mutate array
       tags.splice(currPos, 1);
@@ -149,6 +182,21 @@ class MarkdownEditor extends React.Component {
       this.setState({ tags: tags });
   }
 
+  /**
+   * Handle date input changes
+   */
+  handleDateChange(date) {
+    this.setState({
+      date: date
+    });
+
+    // TEST:
+    console.log(this.state.date.format('MM-DD-YYYY, hh:mm:ssa z'));
+  }
+
+  /**
+   * Post setting control
+   */
   openNav() {
     document.getElementById("postSetting").style.width = "300px";
   }
@@ -169,6 +217,7 @@ class MarkdownEditor extends React.Component {
               <i className="fa fa-lg fa-cog fa-spin setting-icon"></i>
             </a>
             <button id="submit-btn" type="submit" className="btn publish-btn">Sumbit</button>
+
             <div id="postSetting" className="postSetting">
                 <div className="setting-menu-header">
                   <h4>Post Settings</h4>
@@ -176,36 +225,51 @@ class MarkdownEditor extends React.Component {
                 </div>
 
                 <div className="form-group">
-                  <label for="subtitle">Subtitle</label>
-                  <input type="text" name="subtitle" value={this.state.subtitle}
-                    onChange={this.handleChange} />
+                  <label htmlFor="subtitle">Subtitle</label>
+                  <div>
+                    <input type="text" name="subtitle" value={this.state.subtitle}
+                      onChange={this.handleChange} />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label for="author">Author</label>
-                  <input  type="text" name="author" value={this.state.author}
-                    onChange={this.handleChange} />
+                  <label htmlFor="author">Author</label>
+                  <div>
+                    <input  type="text" name="author" value={this.state.author}
+                      onChange={this.handleChange} />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label for="tags">Tags</label>
+                  <label htmlFor="tags">Tags</label>
                   <ReactTags
                                 tags={this.state.tags}
-                                handleDelete={this.handleDelete}
-                                handleAddition={this.handleAddition}
-                                handleDrag={this.handleDrag}
+                                handleDelete={this.handleTagsDelete}
+                                handleAddition={this.handleTagsAddition}
+                                handleDrag={this.handleTagsDrag}
                                 placeholder={''}
                                 labelField={'name'}
                                 />
                 </div>
+                <div className="form-group">
+                  <label htmlFor="date">Publish Date</label>
+                    <div className="date-time-group">
+                      <DatePicker
+                        className="date"
+                        selected={this.state.date}
+                        onChange={this.handleDateChange}
+                      />
+                    <div>
+                      <input type="text" name="time" className="time" onChange={this.handleChange} value={this.state.time} />
+                    </div>
+
+                    </div>
+                </div>
             </div>
           </div>
-          <div className="content">
 
+          <div className="content">
               <textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here"
                 value={this.state.content} onChange={this.handleChange}></textarea>
-
-
               <div className="preview" id="preview" dangerouslySetInnerHTML = {{ __html: md.render(this.state.content) }}></div>
-
           </div>
          </form>
       </main>

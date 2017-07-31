@@ -24,6 +24,7 @@ router.get('/getNumOfPosts', (req, res) => {
 
 // add a new post
 router.post('/addPost', (req, res) => {
+  console.log(req.body);
   new Post(req.body).save().then(post => res.send(post)).catch(console.error);
 });
 

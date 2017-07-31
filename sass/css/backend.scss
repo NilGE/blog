@@ -36,7 +36,7 @@ body {
         border-bottom-right-radius: 0;
         position: relative;
         border-right: 0;
-        width: calc(100% - 56px);
+        width: calc(100% - 66px);
       }
       input:focus {
         outline: none;
@@ -128,7 +128,7 @@ body {
    .postSetting {
       background-color: #f4f8fb;
       height: 100%; /* 100% Full-height */
-      width: 0; /* 0 width - change this with JavaScript */
+      width: 300px; /* 0 width - change this with JavaScript */
       position: fixed; /* Stay in place */
       z-index: 3; /* Stay on top */
       top: 0;
@@ -158,6 +158,18 @@ body {
           font-size: 13px;
           font-weight: 700;
           color: black;
+        }
+        .date-time-group {
+          display: flex;
+          justify-content: space-between;
+          .react-datepicker-wrapper {
+            .date {
+              width: 100px;
+            }
+          }
+          .time {
+            width: 100px;
+          }
         }
       }
    }
