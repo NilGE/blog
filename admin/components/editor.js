@@ -5,6 +5,7 @@ import prism from '../../common/prism';
 import { WithContext as ReactTags } from 'react-tag-input';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
+import DropZone from 'react-dropzone';
 
 class MarkdownEditor extends React.Component {
 
@@ -15,12 +16,12 @@ class MarkdownEditor extends React.Component {
     super(props);
     this.state = {
       title: '',
-      subtitle: '',
       author: '',
       content: '',
       tags: [],
       date: moment(),
-      time: moment().format("hh:mm")
+      time: moment().format("hh:mm a"),
+      backgroundImagePath: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +30,8 @@ class MarkdownEditor extends React.Component {
     this.handleTagsAddition = this.handleTagsAddition.bind(this);
     this.handleTagsDrag = this.handleTagsDrag.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+    this.deleteBackgroundImg = this.deleteBackgroundImg.bind(this);
   }
 
   /**
@@ -39,14 +42,18 @@ class MarkdownEditor extends React.Component {
     if (this.props.location.query.post) {
       axios.get('/api/post/'+this.props.location.query.post).then(res => {
         let post = res.data;
+        console.log(post);
+        let datetime = post.datetime.split(' ');
         axios.post('/api/getTags', post.tags).then(res => {
           this.setState({
             _id: post._id,
             title: post.title,
-            subtitle: post.subtitle,
             author: post.author,
             content: post.content,
-            tags: res.data
+            tags: res.data,
+            date: moment(datetime[0]),
+            time: datetime[1] + ' ' + datetime[2],
+            backgroundImagePath: post.backgroundImagePath
           });
         }).catch(err => console.error(err));
       }).catch(err => console.error(err));
@@ -68,7 +75,9 @@ class MarkdownEditor extends React.Component {
         author: '',
         content: '',
         tags: [],
-        date: moment()
+        date: moment(),
+        time: moment().format("hh:mm a"),
+        backgroundImagePath: ''
       });
     }
   }
@@ -110,11 +119,15 @@ class MarkdownEditor extends React.Component {
         author: this.state.author,
         content: this.state.content,
         tags: tags,
-        datetime: this.state.date.format('MM-DD-YYYY') + ' ' + this.state.time
+        datetime: this.state.date.format('YYYY-MM-DD') + ' ' + this.state.time,
+        backgroundImagePath: this.state.backgroundImagePath
       };
       this.setState({tags: tags});
       // if current post does exist, update current post, otherwise create a post
       let path = this.props.location.query.post == null? '/api/addPost' : '/api/updatePost';
+      if (this.state._id) {
+        postObj._id = this.state._id;
+      }
       axios.post(path, postObj).then(res => {
         // associate tags with post
         let promises = [];
@@ -125,6 +138,7 @@ class MarkdownEditor extends React.Component {
           });
           promises.push(curr);
         });
+        console.log(res);
         document.getElementById('submit-btn').classList.remove("publish-btn");
         document.getElementById('submit-btn').classList.add("success-btn");
         document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Published" : "Updated";
@@ -205,8 +219,43 @@ class MarkdownEditor extends React.Component {
     document.getElementById("postSetting").style.width = "0";
   }
 
+  onDrop(files) {
+    let data = new FormData();
+    data.append('backgroundImg', files[0]);
+    axios.post('api/img/upload', data).then(res => {
+      this.setState({
+        backgroundImagePath: 'img/upload/' + res.data
+      });
+      console.log(res.data);
+    }).catch(err => console.error(err));
+  }
+
+  deleteBackgroundImg() {
+    axios.post('/api/img/delete', { backgroundImagePath: this.state.backgroundImagePath }).then(res => {
+      console.log(res.data);
+      this.setState({
+        backgroundImagePath: ''
+      });
+    }).catch(err => console.error(err));
+  }
+
   render() {
     const md = new Remarkable();
+    const imgUploader = this.state.backgroundImagePath == '' ?
+    (<DropZone
+        onDrop={this.onDrop}
+        multiple={false}
+        style={{}}
+        className="dropZone"
+        name="background-imgs"
+      ><div className="btn add-img-btn">Add post image</div>
+      </DropZone>) :
+    (<div className="thumbnail">
+      <div className="btn img-del-btn" onClick={this.deleteBackgroundImg}>
+        <i className="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
+      <img src={this.state.backgroundImagePath} alt="thumbnail"/>
+    </div>);
     return (
       <main className="editor">
         <form className="editor-form" onSubmit={this.handleSubmit}>
@@ -223,13 +272,8 @@ class MarkdownEditor extends React.Component {
                   <h4>Post Settings</h4>
                   <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                 </div>
-
                 <div className="form-group">
-                  <label htmlFor="subtitle">Subtitle</label>
-                  <div>
-                    <input type="text" name="subtitle" value={this.state.subtitle}
-                      onChange={this.handleChange} />
-                  </div>
+                  {imgUploader}
                 </div>
                 <div className="form-group">
                   <label htmlFor="author">Author</label>

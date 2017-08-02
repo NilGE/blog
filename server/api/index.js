@@ -1,6 +1,8 @@
 import express from 'express';
 import Post from '../model/post';
 import Tag from '../model/tag';
+import multer from 'multer';
+import fs from 'fs';
 
 const router = express.Router();
 
@@ -30,12 +32,14 @@ router.post('/addPost', (req, res) => {
 
 // update a post
 router.post('/updatePost', (req, res) => {
+  console.log(req.body);
   Post.findOneAndUpdate({'_id':req.body._id}, { $set: {
     title: req.body.title,
-    subtitle: req.body.subtitle,
     author: req.body.author,
     content: req.body.content,
-    tags: req.body.tags
+    tags: req.body.tags,
+    datetime: req.body.datetime,
+    backgroundImagePath: req.body.backgroundImagePath
   }}, {new: true}).then(post => {res.send(post)}).catch(console.error);
 });
 
@@ -123,5 +127,22 @@ router.post('/searchPostByTag', (req, res) => {
   }).catch(console.error);
 });
 
+/*upload images*/
+const upload = multer({ dest: 'public/img/upload' });
+router.post('/img/upload', upload.single('backgroundImg'), (req, res) => {
+  // console.log(req.body);
+  console.log(req.file);
+  res.status(201).send(req.file.filename);
+});
+
+router.post('/img/delete', (req, res) => {
+
+  fs.unlink('public/' + req.body.backgroundImagePath, err => {
+    if (err) {
+      console.log(err);
+    }
+    res.send({message: 'file removed'});
+  });
+});
 
 export default router;

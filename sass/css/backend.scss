@@ -128,7 +128,7 @@ body {
    .postSetting {
       background-color: #f4f8fb;
       height: 100%; /* 100% Full-height */
-      width: 300px; /* 0 width - change this with JavaScript */
+      width: 350px; /* 0 width - change this with JavaScript */
       position: fixed; /* Stay in place */
       z-index: 3; /* Stay on top */
       top: 0;
@@ -154,6 +154,47 @@ body {
       }
       .form-group {
         padding: 15px 24px;
+
+        .dropZone {
+          background: white;
+          border-radius: 4px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .add-img-btn {
+            text-align: center;
+            border: 1px solid #d6e3eb;
+            width: 90px;
+            color: #829aa8;
+            font-size: 13px;
+            margin: 40px 0;
+          }
+        }
+        .thumbnail {
+          img {
+            width: 100%;
+            border-radius: 4px;
+          }
+          .img-del-btn {
+            background: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            font-size: 13px;
+            padding: 8px;
+            margin-top: 10px;
+            right: 20px;
+            margin-left: auto;
+            border: 1px;
+            box-shadow: 0 0 0 1px hsla(0,0%,100%,.2);
+            border-radius: 4px;
+            height: auto;
+            line-height: 10px;
+            float: right;
+          }
+          .img-del-btn:hover {
+            background-color: white;
+            color: black;
+          }
+        }
         label {
           font-size: 13px;
           font-weight: 700;
@@ -164,11 +205,11 @@ body {
           justify-content: space-between;
           .react-datepicker-wrapper {
             .date {
-              width: 100px;
+              width: 120px;
             }
           }
           .time {
-            width: 100px;
+            width: 120px;
           }
         }
       }
