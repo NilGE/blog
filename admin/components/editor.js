@@ -6,6 +6,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import DropZone from 'react-dropzone';
+import TagsInput from 'react-tagsinput';
 
 class MarkdownEditor extends React.Component {
 
@@ -21,7 +22,8 @@ class MarkdownEditor extends React.Component {
       tags: [],
       date: moment(),
       time: moment().format("hh:mm a"),
-      backgroundImagePath: ''
+      backgroundImagePath: '',
+      tags2: []
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,6 +34,7 @@ class MarkdownEditor extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.deleteBackgroundImg = this.deleteBackgroundImg.bind(this);
+    this.handleTagsChange = this.handleTagsChange.bind(this);
   }
 
   /**
@@ -212,7 +215,7 @@ class MarkdownEditor extends React.Component {
    * Post setting control
    */
   openNav() {
-    document.getElementById("postSetting").style.width = "300px";
+    document.getElementById("postSetting").style.width = "350px";
   }
 
   closeNav() {
@@ -237,6 +240,10 @@ class MarkdownEditor extends React.Component {
         backgroundImagePath: ''
       });
     }).catch(err => console.error(err));
+  }
+
+  handleTagsChange(tags2) {
+    this.setState({tags2});
   }
 
   render() {
@@ -293,6 +300,16 @@ class MarkdownEditor extends React.Component {
                                 labelField={'name'}
                                 />
                 </div>
+
+                <div className="form-group">
+                  <label htmlFor="tags2">Tags2</label>
+                  <TagsInput
+                    value={this.state.tags2}
+                    onChange={this.handleTagsChange}
+                    inputProps={{placeholder: ''}}
+                    />
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="date">Publish Date</label>
                     <div className="date-time-group">
