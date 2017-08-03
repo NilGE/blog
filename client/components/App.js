@@ -29,12 +29,14 @@ class App extends React.Component {
         <div className="nav">
             <button className="btn menu-button" onClick={this.openNav}><i className="fa fa-bars" aria-hidden="true"></i> Menu</button>
             <div id="mySidenav" className="sidenav">
+              <div className="fix-width">
                 <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                 <Link to="/home">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/contact">Contact</Link>
                 <Link to="/markdownEditor">New Post</Link>
                 <Link to="/search">Search</Link>
+              </div>
             </div>
         </div>
         {this.props.children}

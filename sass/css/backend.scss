@@ -126,9 +126,12 @@ body {
      background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
    }
    .postSetting {
+     .fix-width {
+       width: 350px;
+     }
       background-color: #f4f8fb;
       height: 100%; /* 100% Full-height */
-      width: 350px; /* 0 width - change this with JavaScript */
+      width: 0; /* 0 width - change this with JavaScript */
       position: fixed; /* Stay in place */
       z-index: 3; /* Stay on top */
       top: 0;

@@ -22,8 +22,7 @@ class MarkdownEditor extends React.Component {
       tags: [],
       date: moment(),
       time: moment().format("hh:mm a"),
-      backgroundImagePath: '',
-      tags2: []
+      backgroundImagePath: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,18 +46,17 @@ class MarkdownEditor extends React.Component {
         let post = res.data;
         console.log(post);
         let datetime = post.datetime.split(' ');
-        axios.post('/api/getTags', post.tags).then(res => {
-          this.setState({
-            _id: post._id,
-            title: post.title,
-            author: post.author,
-            content: post.content,
-            tags: res.data,
-            date: moment(datetime[0]),
-            time: datetime[1] + ' ' + datetime[2],
-            backgroundImagePath: post.backgroundImagePath
-          });
-        }).catch(err => console.error(err));
+        this.setState({
+          _id: post._id,
+          title: post.title,
+          author: post.author,
+          content: post.content,
+          tags: post.tags.map(x => x.name),
+          date: moment(datetime[0]),
+          time: datetime[1] + ' ' + datetime[2],
+          backgroundImagePath: post.backgroundImagePath,
+          originTags: post.tags
+        });
       }).catch(err => console.error(err));
     }
     prism.highlightAll();
@@ -82,6 +80,9 @@ class MarkdownEditor extends React.Component {
         time: moment().format("hh:mm a"),
         backgroundImagePath: ''
       });
+      document.getElementById('submit-btn').classList.remove("success-btn");
+      document.getElementById('submit-btn').classList.add("publish-btn");
+      document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Publish" : "Update";
     }
   }
 
@@ -97,56 +98,93 @@ class MarkdownEditor extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-
-
-    // create new tags for those tags do not exist
+    // get the current tag list and check whether the tag exists in db, if not, create a new tag in db
     let tags = this.state.tags;
-    let promises = [];
-    for (let i = 0; i < tags.length; i++) {
-      if (!tags[i]._id) {
-        let curr = axios.post('/api/addTag', tags[i]);
-        curr.then(res => {
-          tags[i] = {
-            _id: res.data._id,
-            name: res.data.name
-          };
-        }).catch(err => console.error(err));
-        promises.push(curr);
-      }
-    }
-
-    axios.all(promises).then(() => {
-      // create a post obj
-      let postObj = {
-        title: this.state.title,
-        author: this.state.author,
-        content: this.state.content,
-        tags: tags,
-        datetime: this.state.date.format('YYYY-MM-DD') + ' ' + this.state.time,
-        backgroundImagePath: this.state.backgroundImagePath
-      };
-      this.setState({tags: tags});
-      // if current post does exist, update current post, otherwise create a post
-      let path = this.props.location.query.post == null? '/api/addPost' : '/api/updatePost';
-      if (this.state._id) {
-        postObj._id = this.state._id;
-      }
-      axios.post(path, postObj).then(res => {
-        // associate tags with post
-        let promises = [];
-        tags.map(tag => {
-          let curr = axios.post('/api/addPostIntoTagList', {
-            tag_id: tag._id,
-            post_id: res.data._id
-          });
-          promises.push(curr);
+    let tagPromises = [];
+    let resultTags = [];
+    axios.get('/api/getAllTags').then(res => {
+      let existTagsMap = new Map();
+      res.data.forEach(obj => {
+        existTagsMap.set(obj.name, obj._id);
+      });
+      tags.forEach(tag => {
+        if (!existTagsMap.has(tag)) {
+          tagPromises.push(axios.post('/api/addTag', {name: tag}));
+        } else {
+          resultTags.push({name: tag, _id: existTagsMap.get(tag)});
+        }
+      });
+      axios.all(tagPromises).then(responses => {
+        // finally get a tag list that all tag has an _id - resultTags
+        responses.forEach(response => {
+          console.log(response);
+          resultTags.push({name: response.data.name, _id: response.data._id});
         });
-        console.log(res);
-        document.getElementById('submit-btn').classList.remove("publish-btn");
-        document.getElementById('submit-btn').classList.add("success-btn");
-        document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Published" : "Updated";
-      }).catch(err => console.error(err));
-    });
+
+        console.log("result Tags List");
+        console.log(resultTags);
+
+        let postObj = {
+          title: this.state.title,
+          author: this.state.author,
+          content: this.state.content,
+          tags: resultTags,
+          datetime: this.state.date.format('YYYY-MM-DD') + ' ' + this.state.time,
+          backgroundImagePath: this.state.backgroundImagePath
+        };
+        let newAdded = resultTags;
+        let postPromise;
+        if(!this.props.location.query.post) {
+          // if this is a new post, create a post and add all current tags(with name and _id) into it
+          // at the same time add the post into tag's post list
+          console.log('new post');
+          postPromise = axios.post('/api/addPost', postObj);
+        } else {
+          console.log('edit post');
+          // if this is a revision post, get the removde tags, new added tags
+          postObj._id = this.state._id;
+          let removedTag = [];
+          let resultTagsSet = new Set();
+          let originTagsSet = new Set();
+          resultTags.forEach(tag => {
+            resultTagsSet.add(tag._id);
+          });
+          this.state.originTags.forEach(tag => {
+            originTagsSet.add(tag._id);
+          });
+          let removed = this.state.originTags.filter(x => !resultTagsSet.has(x));
+          console.log('removed tag list');
+          newAdded = resultTags.filter(x => !originTagsSet.has(x));
+          let removeTagPromises = [];
+          removed.forEach(tag_id => {
+            removeTagPromises.push(axios.post('/api/removePostFromTagList', {tag_id: tag_id, post_id: postObj._id}));
+          });
+          axios.all(removeTagPromises).then(res => {
+            console.log(res.data);
+          }).catch(err => console.error);
+          postPromise = axios.post('/api/updatePost', postObj);
+        }
+
+        // add or update the post
+        postPromise.then(res => {
+          console.log('post response data');
+          console.log(res);
+          let newAddedTagsPromises = [];
+          // add post_id to tag's post list
+          newAdded.forEach(tag_id => {
+            newAddedTagsPromises.push(axios.post('/api/addPostIntoTagList', {tag_id: tag_id, post_id: res.data._id}));
+          });
+          axios.all(newAddedTagsPromises).then(res => {
+            console.log('new added tag reponse data');
+            // update button style
+            console.log(res);
+            document.getElementById('submit-btn').classList.remove("publish-btn");
+            document.getElementById('submit-btn').classList.add("success-btn");
+            document.getElementById('submit-btn').innerHTML = this.props.location.query.post == null ? "Published" : "Updated";
+          }).catch(err => console.error);
+        }).catch(err => console.error);
+      });
+    }).catch(err => console.error(err));
   }
 
   /**
@@ -242,8 +280,8 @@ class MarkdownEditor extends React.Component {
     }).catch(err => console.error(err));
   }
 
-  handleTagsChange(tags2) {
-    this.setState({tags2});
+  handleTagsChange(tags) {
+    this.setState({tags});
   }
 
   render() {
@@ -275,6 +313,7 @@ class MarkdownEditor extends React.Component {
             <button id="submit-btn" type="submit" className="btn publish-btn">Sumbit</button>
 
             <div id="postSetting" className="postSetting">
+              <div className="fix-width">
                 <div className="setting-menu-header">
                   <h4>Post Settings</h4>
                   <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
@@ -291,20 +330,8 @@ class MarkdownEditor extends React.Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="tags">Tags</label>
-                  <ReactTags
-                                tags={this.state.tags}
-                                handleDelete={this.handleTagsDelete}
-                                handleAddition={this.handleTagsAddition}
-                                handleDrag={this.handleTagsDrag}
-                                placeholder={''}
-                                labelField={'name'}
-                                />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="tags2">Tags2</label>
                   <TagsInput
-                    value={this.state.tags2}
+                    value={this.state.tags}
                     onChange={this.handleTagsChange}
                     inputProps={{placeholder: ''}}
                     />
@@ -324,6 +351,7 @@ class MarkdownEditor extends React.Component {
 
                     </div>
                 </div>
+              </div>
             </div>
           </div>
 
