@@ -249,17 +249,35 @@ body {
 /* ==========================================================================
   3. Blog List
   ========================================================================== */
-
 .post-list {
+  .post-list-title {
+    border-bottom: #EBF2F6 1px solid;
+  }
   padding: 24px 6vw 3vw;
   margin: 0 auto;
   max-width: 1200px;
-  .post-header {
-    .post-title {
-      font-size: 22px;
+  .post {
+    border-bottom: #EBF2F6 1px solid;
+    padding-bottom: 30px;
+    margin: 30px auto;
+    .post-header {
+      margin: 0;
+      .post-title {
+        font-size: 22px;
+        color: #3c484e;
+      }
+      a {
+        color: #3c484e;
+      }
     }
-    a, a:hover, a:focus, a:visited {
-      color: #3c484e;
+    .post-meta {
+      color: #9EABB3;
+      a {
+        color: #9EABB3;
+      }
+      a:hover {
+        color: #000;
+      }
     }
   }
 }

@@ -21,6 +21,9 @@ class Posts extends React.Component {
   render() {
     return (
       <div className="post-list">
+        <div className="post-list-title">
+          <h1>Your Posts</h1>
+        </div>
         <List posts={this.state.posts} />
       </div>
     );

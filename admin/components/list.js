@@ -17,7 +17,7 @@ const List = ({posts}) => {
               <p>{post.subtitle}</p>
           </div>
           <div className="post-meta">
-              <Link to="/contact">{post.author}</Link> on
+              <span>{post.author}</span> on
                 {post.tags.map(tag =>
                   <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id, tagName: tag.name} }} > {tag.name} | </Link>
                 )} <time>{post.datetime}</time>
