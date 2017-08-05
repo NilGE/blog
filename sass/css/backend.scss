@@ -86,48 +86,80 @@ body {
  display: flex;
  flex-direction: column;
  height: 100%;
- .title {
-   height:65px;
-   border-bottom: #dfe1e3 1px solid;
-   padding: 0 20px;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   .title-input {
-     padding: 0px;
-     border: 0px;
-     font-size: 30px;
-     font-weight: 700;
-     margin-right: auto;
-   }
-   .setting {
-     border: none;
-     outline: none;
-     background: 0 0;
-     font-size: 15px;
 
-     .setting-icon {
-       color: gray;
+ .editor-form {
+   .title {
+     height:65px;
+     border-bottom: #dfe1e3 1px solid;
+     padding: 0 20px;
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     .title-input {
+       padding: 0px;
+       border: 0px;
+       font-size: 30px;
+       font-weight: 700;
+       margin-right: auto;
+     }
+     .setting {
+       border: none;
+       outline: none;
+       background: 0 0;
+       font-size: 15px;
+
+       .setting-icon {
+         color: gray;
+         margin: 0 15px;
+       }
+     }
+     .btn {
+       padding: 0 15px;
        margin: 0 15px;
+       height: 31px;
+       color: #fff;
+       outline: none;
+     }
+     .publish-btn {
+       background: linear-gradient(#4ab6f0,#2fa5e4 60%,#2fa5e4 90%,#38a9e5);
+     }
+
+     .success-btn {
+       background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
      }
    }
-   .btn {
-     padding: 0 15px;
-     margin: 0 15px;
-     height: 31px;
-     color: #fff;
-     outline: none;
-   }
-   .publish-btn {
-     background: linear-gradient(#4ab6f0,#2fa5e4 60%,#2fa5e4 90%,#38a9e5);
+
+   .content {
+     display: flex;
+     flex-direction: row;
+     height: 100%;
+     .markdown {
+       width: 50%;
+       border: 0px;
+       border-right: #dfe1e3 1px solid;
+       padding: 20px;
+       font-size: 1.4rem;
+       overflow: auto;
+     }
+     .preview {
+       width: 50%;
+       margin: 0;
+       border-bottom: #dfe1e3 1px solid;
+       padding: 20px;
+       overflow: auto;
+     }
+     textarea:focus, input:focus {
+       outline: none;
+     }
    }
 
-   .success-btn {
-     background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
-   }
-   .postSetting {
+   .postSetting, .tagSetting {
      .fix-width {
        width: 350px;
+     }
+
+     input:focus {
+       outline: none;
      }
       background-color: #f4f8fb;
       height: 100%; /* 100% Full-height */
@@ -167,10 +199,12 @@ body {
           .add-img-btn {
             text-align: center;
             border: 1px solid #d6e3eb;
-            width: 90px;
+            width: 130px;
             color: #829aa8;
             font-size: 13px;
             margin: 40px 0;
+            height: auto;
+            line-height: 35px;
           }
         }
         .thumbnail {
@@ -217,32 +251,14 @@ body {
         }
       }
    }
- }
- .editor-form {
+
+   .tag-setting-special-setting {
+     height: auto;
+     overflow: auto;
+     position: absolute;
+     width: 350px;
+   }
    height: calc(100% - 66px);
- }
- .content {
-   display: flex;
-   flex-direction: row;
-   height: 100%;
-   .markdown {
-     width: 50%;
-     border: 0px;
-     border-right: #dfe1e3 1px solid;
-     padding: 20px;
-     font-size: 1.4rem;
-     overflow: auto;
-   }
-   .preview {
-     width: 50%;
-     margin: 0;
-     border-bottom: #dfe1e3 1px solid;
-     padding: 20px;
-     overflow: auto;
-   }
- }
- textarea:focus, input:focus {
-   outline: none;
  }
 }
 
@@ -278,6 +294,74 @@ body {
       a:hover {
         color: #000;
       }
+    }
+  }
+}
+
+/* ==========================================================================
+  4. Tag List
+  ========================================================================== */
+.tags {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .tags-header {
+    display: flex;
+    flex-direction: row;
+    height: 65px;
+    padding: 0 20px;
+    align-items: center;
+    border-bottom: 1px solid #e5eff5;
+    h2 {
+      font-size: 20px;
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
+      font-weight: normal;
+    }
+  }
+  .tags-body {
+    display: flex;
+    flex-direction: row;
+    .tags-list {
+      width: calc(100% - 350px);
+      left: 0;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      .tag-panel {
+        border-bottom: 1px solid #e5eff5;
+        .active {
+          border-left: 3px solid #3eb0ef;
+        }
+        .tag-content {
+          display: flex;
+          flex-direction: row;
+          padding: 20px;
+          .tag-name {
+            margin-right: auto;
+          }
+          .tag-count {
+            color: #738a94;
+          }
+        }
+      }
+      .tag-panel:hover {
+        background-color: #c8ebff;
+      }
+      .tag-panel:active {
+        background-color: #6dc4f3;
+        color: white;
+      }
+    }
+    .tag-editor {
+      width: 350px;
+      height: calc(100% - 66px);
+      border-left: 1px solid #e5eff5;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      background: #f4f8fb;
+      right: 0;
     }
   }
 }

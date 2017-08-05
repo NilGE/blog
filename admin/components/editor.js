@@ -311,54 +311,54 @@ class MarkdownEditor extends React.Component {
               <i className="fa fa-lg fa-cog fa-spin setting-icon"></i>
             </a>
             <button id="submit-btn" type="submit" className="btn publish-btn">Sumbit</button>
-
-            <div id="postSetting" className="postSetting">
-              <div className="fix-width">
-                <div className="setting-menu-header">
-                  <h4>Post Settings</h4>
-                  <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
-                </div>
-                <div className="form-group">
-                  {imgUploader}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="author">Author</label>
-                  <div>
-                    <input  type="text" name="author" value={this.state.author}
-                      onChange={this.handleChange} />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="tags">Tags</label>
-                  <TagsInput
-                    value={this.state.tags}
-                    onChange={this.handleTagsChange}
-                    inputProps={{placeholder: ''}}
-                    />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="date">Publish Date</label>
-                    <div className="date-time-group">
-                      <DatePicker
-                        className="date"
-                        selected={this.state.date}
-                        onChange={this.handleDateChange}
-                      />
-                    <div>
-                      <input type="text" name="time" className="time" onChange={this.handleChange} value={this.state.time} />
-                    </div>
-
-                    </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="content">
               <textarea id="markdown" className="markdown" name="content" placeholder="Type Markdown Here"
                 value={this.state.content} onChange={this.handleChange}></textarea>
               <div className="preview" id="preview" dangerouslySetInnerHTML = {{ __html: md.render(this.state.content) }}></div>
+          </div>
+
+          <div id="postSetting" className="postSetting">
+            <div className="fix-width">
+              <div className="setting-menu-header">
+                <h4>Post Settings</h4>
+                <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
+              </div>
+              <div className="form-group">
+                {imgUploader}
+              </div>
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <div>
+                  <input  type="text" name="author" value={this.state.author}
+                    onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="tags">Tags</label>
+                <TagsInput
+                  value={this.state.tags}
+                  onChange={this.handleTagsChange}
+                  inputProps={{placeholder: ''}}
+                  />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="date">Publish Date</label>
+                  <div className="date-time-group">
+                    <DatePicker
+                      className="date"
+                      selected={this.state.date}
+                      onChange={this.handleDateChange}
+                    />
+                  <div>
+                    <input type="text" name="time" className="time" onChange={this.handleChange} value={this.state.time} />
+                  </div>
+
+                  </div>
+              </div>
+            </div>
           </div>
          </form>
       </main>

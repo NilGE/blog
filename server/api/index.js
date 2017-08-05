@@ -88,7 +88,14 @@ router.post('/searchPostByTag', (req, res) => {
 
 // get all tags
 router.get('/getAllTags', (req, res) => {
-  Tag.find({}).select("name").then(doc => res.send(doc)).catch(console.error);
+  Tag.find({}).select("name posts").then(doc => {
+    res.send(doc.map(tag => {return {_id:tag._id, name: tag.name, count: tag.posts.length} }));
+  }).catch(console.error);
+});
+
+// get a tag by id
+router.post('/getTagById', (req, res) => {
+  Tag.findOne({'_id': req.body._id}).then(response => res.send(response)).catch(console.error);
 });
 
 // get tags with ids
