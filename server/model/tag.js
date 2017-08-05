@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const tagSchema = new Schema({
     name: { type: String, required: true , unique: true},
-    posts: { type: Array }
+    posts: { type: Array },
+    backgroundImagePath: {type: String}
 }, {collection: "tag"});
 
 tagSchema.index({name: 'text'});

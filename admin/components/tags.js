@@ -7,7 +7,7 @@ class Tags extends React.Component {
     super(props);
     this.state = {
       tags: [],
-      tag: {}
+      tag_id: ''
     };
   }
 
@@ -19,8 +19,14 @@ class Tags extends React.Component {
     }).catch(err => console.log(err));
   }
 
-  handleTagClick() {
-
+  handleTagClick(_id) {
+    if (this.state.tag_id != '') {
+      document.getElementById(this.state.tag_id).classList.remove("active");
+    }
+    document.getElementById(_id).classList.add("active");
+    this.setState({
+      tag_id: _id
+    });
   }
 
   render() {
@@ -36,7 +42,7 @@ class Tags extends React.Component {
             {
               this.state.tags.map(tag =>
                 <div className="tag-panel" key={tag._id}>
-                  <div className="tag-content" onClick={this.handleTagClick}>
+                  <div id={tag._id} className="tag-content" onClick={() => {this.handleTagClick(tag._id)}}>
                     <div className="tag-name">{tag.name}</div>
                     <div className="tag-count">{tag.count}</div>
                   </div>
@@ -45,7 +51,7 @@ class Tags extends React.Component {
             }
           </div>
           <div className="tag-editor">
-            {this.props.children}
+            <TagEditor _id={this.state.tag_id} />
           </div>
         </div>
       </div>

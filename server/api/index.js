@@ -116,6 +116,15 @@ router.post('/addTag', (req, res) => {
   }).save().then(response => res.send(response)).catch(console.error);
 });
 
+// update a tag
+router.post('/updateTag', (req, res) => {
+  Tag.findOneAndUpdate({'_id':req.body._id}, { $set: {
+    name: req.body.name,
+    backgroundImagePath: req.body.backgroundImagePath
+  }}, {new: true}).then(tag => {res.send(tag)}).catch(console.error);
+});
+
+
 //get post tags
 router.post('/getTagsByPostId', (req, res) => {
   Post.findOne({'_id': req.body._id}).then(response => res.send(response.tags)).catch(console.error);
@@ -160,7 +169,6 @@ router.post('/img/upload', upload.single('backgroundImg'), (req, res) => {
 });
 
 router.post('/img/delete', (req, res) => {
-
   fs.unlink('public/' + req.body.backgroundImagePath, err => {
     if (err) {
       console.log(err);

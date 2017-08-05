@@ -218,14 +218,13 @@ body {
             font-size: 13px;
             padding: 8px;
             margin-top: 10px;
-            right: 20px;
-            margin-left: auto;
+            margin-left: 260px;
             border: 1px;
             box-shadow: 0 0 0 1px hsla(0,0%,100%,.2);
             border-radius: 4px;
             height: auto;
             line-height: 10px;
-            float: right;
+            color: #cacaca;
           }
           .img-del-btn:hover {
             background-color: white;
@@ -362,6 +361,18 @@ body {
       position: absolute;
       background: #f4f8fb;
       right: 0;
+      .btn {
+        padding: 0 15px;
+        height: 31px;
+        color: #fff;
+        outline: none;
+      }
+      .update-btn {
+        background: linear-gradient(#4ab6f0, #2fa5e4 60%, #2fa5e4 90%, #38a9e5);
+      }
+      .success-btn {
+        background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
+      }
     }
   }
 }
