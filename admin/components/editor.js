@@ -307,7 +307,7 @@ class MarkdownEditor extends React.Component {
           <div className="title">
             <input type="text" name="title" placeholder="Your Post Title" value={this.state.title}
               className="title-input" onChange={this.handleChange} />
-            <a href="javascript:void(0)" className="setting" onClick={this.openNav}>
+            <a href="javascript:void(0)" className="setting-gear" onClick={this.openNav}>
               <i className="fa fa-lg fa-cog fa-spin setting-icon"></i>
             </a>
             <button id="submit-btn" type="submit" className="btn publish-btn">Sumbit</button>

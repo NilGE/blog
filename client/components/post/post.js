@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import Remarkable from 'remarkable';
 import ImageHeader from '../common/imageHeader.js';
 import axios from 'axios';
-import dateFormat from 'dateformat';
 import prism from '../common/prism';
 import mathBlock from '../extension/remarkable-ext/math-block';
 import mathInline from '../extension/remarkable-ext/math-inline';
@@ -14,24 +13,25 @@ class Post extends React.Component {
     super(props);
     this.state = {
       title: '',
-      subtitle: '',
       author: '',
-      date: '',
+      datetime: '',
       content: '',
-      tags: []
+      tags: [],
+      backgroundImagePath: ''
     };
   }
 
   componentDidMount() {
     axios.get('/api/post/'+this.props.params.post_id).then(res => {
+      console.log(res.data);
       let post = res.data;
       this.setState({
         title: post.title,
-        subtitle: post.subtitle,
         author: post.author,
-        date: this.formatDate(post.date),
+        datetime: post.datetime,
         content: post.content,
-        tags: post.tags
+        tags: post.tags,
+        backgroundImagePath: post.backgroundImagePath
       });
       prism.highlightAll();
     }).catch(err => console.error(err));
@@ -41,16 +41,11 @@ class Post extends React.Component {
     prism.highlightAll();
   }
 
-  formatDate(raw_date) {
-    let date = new Date(raw_date);
-    return dateFormat(date, "mmmm dd, yyyy");
-  }
-
   render() {
     const imageStyle = {
-      backgroundImage: 'url(img/post.jpg)'
+      backgroundImage: 'url(' + this.state.backgroundImagePath + ')'
     };
-    const {title, subtitle, author, date, content, tags} = this.state;
+    const {title, author, datetime, content, tags} = this.state;
     const md = new Remarkable();
     md.use(mathBlock);
     md.use(mathInline);
@@ -61,7 +56,6 @@ class Post extends React.Component {
           imageStyle={imageStyle}
           type={"header parallax"}
           heading={title}
-          subheading={subtitle}
         />
         <main id="content">
           <article className="post post-article">
@@ -72,14 +66,12 @@ class Post extends React.Component {
                   <Link to="/contact">{author}</Link> on
                     {tags.map(tag =>
                       <Link key={tag._id} to={{ pathname: '/tagList', query: {tag: tag._id, tagName: tag.name} }} > {tag.name} | </Link>
-                    )} <time>{date}</time>
+                    )} <time>{datetime}</time>
               </div>
             </div>
             <div className="post-content">
               <div dangerouslySetInnerHTML = {{ __html: md.render(content) }}></div>
             </div>
-            <Link style={{color: '#0275d8'}}to={{ pathname: '/markdownEditor',
-              query: {post: this.props.params.post_id} }}>Edit</Link>
           </article>
         </main>
       </div>

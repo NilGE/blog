@@ -34,7 +34,6 @@ class App extends React.Component {
                 <Link to="/home">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/contact">Contact</Link>
-                <Link to="/markdownEditor">New Post</Link>
                 <Link to="/search">Search</Link>
               </div>
             </div>

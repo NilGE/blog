@@ -16,7 +16,6 @@ ImageHeader.propTypes = {
   imageStyle: React.PropTypes.object,
   type: React.PropTypes.string,
   heading: React.PropTypes.string,
-  subheading: React.PropTypes.string,
   other: React.PropTypes.node
 };
 

@@ -12,7 +12,10 @@ class Home extends React.Component {
       posts: [],
       limit: 5,
       skip: 0,
-      total: 0
+      total: 0,
+      userId: '598660859a37529bb156789a',
+      blogTitle: '',
+      backgroundImagePath: ''
     };
     this.handleClickOlderPost = this.handleClickOlderPost.bind(this);
     this.handleClickNewerPost = this.handleClickNewerPost.bind(this);
@@ -21,7 +24,13 @@ class Home extends React.Component {
     axios.post('/api/postList', {limit: limit, skip: skip}).then(res => {
       this.setState({posts: res.data});
       console.log(res.data);
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
+    axios.post('/api/getUser', {_id: this.state.userId}).then(res => {
+      this.setState({
+        blogTitle: res.data.blogTitle,
+        backgroundImagePath: res.data.backgroundImagePath
+      });
+    }).catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -54,14 +63,14 @@ class Home extends React.Component {
 
   render () {
     const imageStyle = {
-      backgroundImage: 'url(/img/home.jpg)'
+      backgroundImage: 'url(' + this.state.backgroundImagePath + ')'
     };
     return (
       <div id="body-wrapper">
         <ImageHeader
           imageStyle={imageStyle}
           type={"header full-screen parallax"}
-          heading={"Nilge's Blog"}
+          heading={this.state.blogTitle}
           other={'<a class="scroll-btn" href="#content"><span></span></a>'}
         />
         <main id="content">
