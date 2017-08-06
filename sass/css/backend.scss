@@ -16,6 +16,8 @@ body {
   .navbar {
     min-width: 280px;
     background-color: #f4f8fb;
+    position: fixed;
+    height: 100%;
     .header {
       padding: 25px;
       padding-bottom: 0px;
@@ -76,6 +78,7 @@ body {
   }
   .main {
     width: calc(100% - 280px);
+    margin-left: 280px;
   }
 }
 
@@ -372,6 +375,109 @@ body {
       }
       .success-btn {
         background: linear-gradient(#a9d142,#9bc238 60%,#9bc238 90%,#9abf3b);
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+  4. Setting
+  ========================================================================== */
+.setting {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 50px;
+  margin: auto;
+
+  .setting-header {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #e5eff5;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    .title {
+      margin-right: auto;
+    }
+
+    .default-btn {
+      padding: 10px 13px;
+      font-size: 13px;
+      height: auto;
+      line-height: 15px;
+      color: #fff;
+      outline: none;
+      transition: background-color 0.5s ease;
+    }
+    .save-btn {
+      background-color: #4ab6f0;
+      border-color: #4ab6f0;
+    }
+    .save-btn:hover {
+      background-color: #0084cc;
+      border-color: #0084cc;
+    }
+    .save-btn:active {
+      color: #000;
+    }
+    .success-btn {
+      background-color: #a4da19;
+      border-color: #a4da19;
+    }
+  }
+  .setting-content {
+    .form-group {
+      max-width: 700px;
+      margin-bottom: 50px;
+      .form-input {
+        margin-top: 20px;
+      }
+      padding: 15px 24px;
+      .bgd-img {
+        width: 350px;
+        .dropZone {
+          background: white;
+          border-radius: 4px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border: 1px solid #dfe1e3;
+          margin-top: 20px;
+          .add-img-btn {
+            text-align: center;
+            border: 1px solid #d6e3eb;
+            width: 130px;
+            color: #829aa8;
+            font-size: 13px;
+            margin: 70px 0;
+            height: auto;
+            line-height: 35px;
+          }
+        }
+        .thumbnail {
+          img {
+            width: 100%;
+            border-radius: 4px;
+          }
+          .img-del-btn {
+            background: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            font-size: 13px;
+            padding: 8px;
+            margin-top: 20px;
+            margin-left: 300px;
+            border: 1px;
+            box-shadow: 0 0 0 1px hsla(0,0%,100%,.2);
+            border-radius: 4px;
+            height: auto;
+            line-height: 10px;
+            color: #cacaca;
+          }
+          .img-del-btn:hover {
+            background-color: white;
+            color: black;
+          }
+        }
       }
     }
   }

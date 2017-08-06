@@ -1,6 +1,7 @@
 import express from 'express';
 import Post from '../model/post';
 import Tag from '../model/tag';
+import User from '../model/user';
 import multer from 'multer';
 import fs from 'fs';
 
@@ -160,6 +161,24 @@ router.post('/getPostsWithCurrentTag', (req, res) => {
         .then(posts => res.send({ posts: posts, total: tag.posts.length }))
         .catch(console.error);
   }).catch(console.error);
+});
+
+/* -------------- user api --------------- */
+router.post('/getUser', (req, res) => {
+  User.findOne({'_id' : req.body._id}).then(user => res.send(user)).catch(console.error);
+});
+
+router.post('/updateUser', (req, res) => {
+  User.findOneAndUpdate({'_id':req.body._id}, { $set: {
+    userName: req.body.userName,
+    blogTitle: req.body.blogTitle,
+    backgroundImagePath: req.body.backgroundImagePath
+  }}, {new: true}).then(user => {res.send(user)}).catch(console.error);
+});
+
+// NOTICE!!!, do not use this api in the project, just for test
+router.post('/addUser', (req, res) => {
+  new User(req.body).save().then(user => res.send(user)).catch(console.error);
 });
 
 /* ----------- upload images ------------- */
