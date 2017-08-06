@@ -15,3 +15,18 @@ npm start
 ```
 
 Then open http://localhost:8080
+
+## 3. Google Cloud Platform
+
+* Use mLab Cloud-hosted MongoDB. Account and password can be found in keePass
+* Cloud version config file is `config/configCloud.js` in config directory. Make a change in
+`server/index.js`:
+
+```
+import config from '../config/config';
+
+==>
+
+import config from '../config/configCloud';
+
+```
