@@ -2,7 +2,6 @@ import React from 'react';
 import Remarkable from 'remarkable';
 import axios from 'axios';
 import prism from '../../common/prism';
-import { WithContext as ReactTags } from 'react-tag-input';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import DropZone from 'react-dropzone';

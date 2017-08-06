@@ -1,5 +1,5 @@
 import express from 'express';
-import config from '../config/config';
+import config from '../config/configCloud';
 import path from 'path';
 
 import webpack from 'webpack';
