@@ -1,15 +1,15 @@
 import express from 'express';
-import config from '../config/configCloud';
+import config from './config/configCloud';
 import path from 'path';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.config.dev';
+import webpackConfig from './webpack.config.dev';
 import sassMiddleware from 'node-sass-middleware';
 
 import mongoose from 'mongoose';
-import apiRouter from './api/index';
+import apiRouter from './server/api/index';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -18,8 +18,8 @@ const app = express();
 const compiler = webpack(webpackConfig);
 
 app.use(sassMiddleware({
-	src: path.join(__dirname, '../sass'),
-	dest: path.join(__dirname, '../public'),
+	src: path.join(__dirname, '/sass'),
+	dest: path.join(__dirname, '/public'),
   // debug: true,
 	outputStyle: 'extended'
 }));
@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // ejs view and public folder configuration
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use(express.static(path.resolve(path.join(__dirname, '/public'))));
 app.get('/admin', (req, res) => {
   res.render('admin', {
     content: 'dummy content'
@@ -63,5 +63,5 @@ app.get('*', (req, res) => {
 });
 // port listening
 app.listen(config.port, config.host, () => {
-  console.info('Magic happens at port ', config.port);
+  console.info('Dev - Magic happens at port ', config.port);
 });

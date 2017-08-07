@@ -1,26 +1,12 @@
-import webpack from 'webpack';
-
-export default {
-  devtool: 'eval-source-map',
+module.exports = {
   entry: {
-    public: [
-      'webpack-hot-middleware/client',
-      './client/index.js'
-    ],
-    admin: [
-      'webpack-hot-middleware/client',
-      './admin/index.js'
-    ]
+    public: './client/index.js',
+    admin: './admin/index.js'
   },
   output: {
     path: __dirname + '/public',
 		filename: '[name].js'
   },
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
   module: {
     loaders: [
       {

@@ -1,9 +1,9 @@
-import express from 'express';
-import Post from '../model/post';
-import Tag from '../model/tag';
-import User from '../model/user';
-import multer from 'multer';
-import fs from 'fs';
+const express = require('express');
+const Post = require('../model/post.js');
+const Tag = require('../model/tag.js');
+const User = require('../model/user.js');
+const multer = require('multer');
+const fs = require('fs');
 
 const router = express.Router();
 
@@ -196,4 +196,4 @@ router.post('/img/delete', (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;

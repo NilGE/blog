@@ -30,3 +30,6 @@ import config from '../config/config';
 import config from '../config/configCloud';
 
 ```
+
+
+TODO: might need to change the host setting in server.js
