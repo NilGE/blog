@@ -6,7 +6,7 @@ class Setting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: '598660859a37529bb156789a',
+      _id: '5988592c91e121e8c8089029',
       userName: '',
       blogTitle: '',
       backgroundImagePath: ''

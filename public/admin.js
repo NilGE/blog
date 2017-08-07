@@ -57259,7 +57259,7 @@ var Setting = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Setting.__proto__ || Object.getPrototypeOf(Setting)).call(this, props));
 
     _this.state = {
-      _id: '598660859a37529bb156789a',
+      _id: '5988592c91e121e8c8089029',
       userName: '',
       blogTitle: '',
       backgroundImagePath: ''
