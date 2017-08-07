@@ -51,3 +51,8 @@ public/css
 
 # solr
 solr-6.5.0
+
+# bundle file
+
+public/admin.js
+public/public.js
