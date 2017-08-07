@@ -37,6 +37,7 @@ Then open [localhost at port 8080](http://localhost:8080)
 	
 	```
 * Deploy on Google Cloud Platform: go to project folder and run `gcloud app deploy`
+* [Open app](https://blog-176014.appspot.com) in browser
 
 
 ## 4. mLab
