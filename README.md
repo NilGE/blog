@@ -20,7 +20,7 @@ Then open http://localhost:8080
 
 * Use mLab Cloud-hosted MongoDB. Account and password can be found in keePass
 * Cloud version config file is `config/configCloud.js` in config directory. Make a change in
-`server/index.js`:
+`server-dev.js` and `server.js` to convert to cloud version:
 
 ```
 import config from '../config/config';
@@ -30,6 +30,9 @@ import config from '../config/config';
 import config from '../config/configCloud';
 
 ```
+* Deploy on Google Cloud Platform
+
+go to project folder and run `gcloud app deploy`
 
 
 TODO: might need to change the host setting in server.js
